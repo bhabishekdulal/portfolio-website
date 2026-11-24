@@ -18,7 +18,8 @@
 
   /* =========================================================
      LIVE WALLPAPER — drifting golden particles + topographic
-     waves + gentle mouse parallax. Pauses when tab is hidden.
+     waves + gentle mouse parallax. Pauses when tab is hidden
+     and automatically while the photo lightbox is open.
      ========================================================= */
   const canvas = $("#bg");
   const ctx = canvas.getContext("2d");
@@ -31,6 +32,7 @@
   let motionOn = savedPref ? savedPref === "on" : !prefersReduced;
 
   let W = 0, H = 0, dpr = 1, t = 0, rafId = null;
+  let lbOpen = false; // true while the lightbox is open (wallpaper paused)
   let mouseX = 0, mouseY = 0, px = 0, py = 0;
   let particles = [];
 
@@ -54,14 +56,14 @@
     };
   }
 
-function drawBase() {
-  const light = document.documentElement.dataset.theme === "light";
-  const g = ctx.createLinearGradient(0, 0, 0, H);
-  if (light) { g.addColorStop(0, "#f8eedc"); g.addColorStop(1, "#e8d2a8"); }
-  else { g.addColorStop(0, "#1c110a"); g.addColorStop(0.55, "#2c1a10"); g.addColorStop(1, "#4b2a15"); }
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, W, H);
-}
+  function drawBase() {
+    const light = document.documentElement.dataset.theme === "light";
+    const g = ctx.createLinearGradient(0, 0, 0, H);
+    if (light) { g.addColorStop(0, "#f8eedc"); g.addColorStop(1, "#e8d2a8"); }
+    else { g.addColorStop(0, "#1c110a"); g.addColorStop(0.55, "#2c1a10"); g.addColorStop(1, "#4b2a15"); }
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+  }
 
   // Layered sine-wave "hills" that read like topographic contour lines
   function drawWaves() {
@@ -124,13 +126,21 @@ function drawBase() {
     rafId = requestAnimationFrame(loop);
   }
 
+  function stopLoop() {
+    cancelAnimationFrame(rafId); rafId = null;
+  }
+
+  function startLoopIfAllowed() {
+    if (motionOn && !document.hidden && !lbOpen && !rafId) loop();
+  }
+
   function setMotion(on) {
     motionOn = on;
     toggle.setAttribute("aria-pressed", String(!on));
     toggleLabel.textContent = on ? "Motion on" : "Motion off";
     try { localStorage.setItem("motion", on ? "on" : "off"); } catch (e) {}
-    cancelAnimationFrame(rafId); rafId = null;
-    if (on && !document.hidden) loop(); else draw();
+    stopLoop();
+    if (on && !document.hidden && !lbOpen) loop(); else draw();
   }
 
   window.addEventListener("resize", resize);
@@ -138,8 +148,8 @@ function drawBase() {
     mouseX = e.clientX / W - 0.5; mouseY = e.clientY / H - 0.5;
   });
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) { cancelAnimationFrame(rafId); rafId = null; }
-    else if (motionOn && !rafId) loop();
+    if (document.hidden) stopLoop();
+    else startLoopIfAllowed();
   });
   toggle.addEventListener("click", () => setMotion(!motionOn));
   resize();
@@ -219,7 +229,9 @@ function drawBase() {
   $$("img.photo").forEach(attachFallback);
 
   /* =========================================================
-     LIGHTBOX — gallery modal with keyboard + swipe support
+     LIGHTBOX — gallery modal with keyboard + swipe support.
+     The wallpaper animation is paused while it is open, so
+     opening a photo is smooth.
      ========================================================= */
   const lb = $("#lightbox"), lbImg = $("#lbImg"), lbCap = $("#lbCap");
   const items = $$("#gallery .g-item");
@@ -237,6 +249,7 @@ function drawBase() {
     if (el.tagName === "IMG") {
       node = document.createElement("img");
       node.id = "lbImg"; node.alt = el.alt; node.referrerPolicy = "no-referrer";
+      node.decoding = "async"; // decode the photo off the main thread
       node.src = el.src;
       node.addEventListener("error", () => {
         const ph = makePlaceholder(el); ph.id = "lbImg"; node.replaceWith(ph);
@@ -248,11 +261,13 @@ function drawBase() {
   }
   function open(i) {
     lastFocus = document.activeElement;
+    lbOpen = true; stopLoop(); // pause the wallpaper
     lb.hidden = false; document.body.style.overflow = "hidden";
     show(i); $("#lbClose").focus();
   }
   function close() {
     lb.hidden = true; document.body.style.overflow = "";
+    lbOpen = false; startLoopIfAllowed(); // resume the wallpaper
     if (lastFocus) lastFocus.focus();
   }
   items.forEach((btn, i) => btn.addEventListener("click", () => open(i)));
