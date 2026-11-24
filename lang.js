@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  const DEFAULT_LANG = "en"; // change to "ne" if the site should open in Nepali
+  const DEFAULT_LANG = "ne"; // change to "ne" if the site should open in Nepali
 
   const btn = document.getElementById("langToggle");
   const textEls = Array.from(document.querySelectorAll("[data-ne]"));
