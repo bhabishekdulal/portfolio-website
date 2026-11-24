@@ -1,29 +1,29 @@
 /* =========================================================
    Bhabishek Dulal — Portfolio  |  script.js
-   Sections: CONFIG · LIVE WALLPAPER · NAV · TYPED TEXT · REVEAL
-             · PHOTO FALLBACKS · LIGHTBOX · FEEDBACK FORM
+   Sections: LIVE WALLPAPER · NAV MENU · PHOTO FALLBACKS
+             · LIGHTBOX · FEEDBACK FORM
+   The wallpaper (canvas) is the ONLY thing that animates.
    ========================================================= */
 (function () {
   "use strict";
 
   /* ---------- CONFIG (edit me) ---------- */
   const SUPPORT_EMAIL = "bhabishek.feedback.suppport@gmail.com";
-  const TYPED_PHRASES = [
-    "Proud son of a Nurse & a Teacher",
-    "Educational Content Creator",
-  ];
 
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const isNe = () => document.documentElement.lang === "ne";
+  const neDigits = (n) => String(n).replace(/\d/g, (d) => "०१२३४५६७८९"[d]);
 
   /* =========================================================
-     LIVE WALLPAPER — drifting golden particles + topographic
-     waves + gentle mouse parallax.
+     LIVE WALLPAPER — drifting pink particles + topographic
+     waves in Inter Miami pink and brown.
      Performance rules:
        • paused when the tab is hidden
        • paused while the photo lightbox is open
-       • phones/tablets: lighter drawing, 30 fps, and the
-         animation is OFF by default (user can switch it on)
+       • phones: drawn at half resolution, fewer shapes, ~25 fps,
+         and paused while the page is being scrolled
+       • glow sprite is pre-rendered (no gradients per frame)
      ========================================================= */
   const canvas = $("#bg");
   const ctx = canvas.getContext("2d");
@@ -37,41 +37,85 @@
 
   let savedPref = null;
   try { savedPref = localStorage.getItem("motion"); } catch (e) {}
-  // On mobile the animation starts OFF unless the visitor turned it on before.
-  let motionOn = savedPref ? savedPref === "on" : !prefersReduced && !isMobile;
+  let motionOn = savedPref ? savedPref === "on" : !prefersReduced;
 
-  const MAX_PARTICLES = isMobile ? 22 : 90;
-  const WAVE_LAYERS = isMobile ? 5 : 11;
-  const WAVE_STEP = isMobile ? 30 : 14;
-  const FRAME_MS = isMobile ? 33 : 0; // ~30 fps on mobile
+  const SCALE = isMobile ? 0.5 : 1;            // canvas resolution multiplier
+  const MAX_PARTICLES = isMobile ? 16 : 60;
+  const WAVE_LAYERS = isMobile ? 5 : 9;
+  const WAVE_STEP = isMobile ? 28 : 16;
+  const FRAME_MS = isMobile ? 40 : 0;          // ~25 fps on phones
 
-  let W = 0, H = 0, dpr = 1, t = 0, rafId = null, lastTs = 0;
-  let lbOpen = false; // true while the lightbox is open (wallpaper paused)
+  /* Pink + brown palettes for the two themes */
+  const PALETTE = {
+    dark: {
+      bg: ["#1b0f0d", "#2a1511", "#40211b"],
+      wave: "247,181,205", waveBoost: 1,
+      hill: "150,96,74", glow: "247,181,205",
+    },
+    light: {
+      bg: ["#fff3f6", "#fbe3ea", "#f3cfda"],
+      wave: "184,42,99", waveBoost: 1.3,
+      hill: "138,86,63", glow: "232,122,165",
+    },
+  };
+
+  let W = 0, H = 0, t = 0, rafId = null, lastTs = 0;
+  let lbOpen = false;       // lightbox open -> wallpaper paused
+  let scrolling = false;    // phones: paused while scrolling
   let mouseX = 0, mouseY = 0, px = 0, py = 0;
   let particles = [];
+  let pal = PALETTE.dark, sprite = null, baseGrad = null;
+
+  function themeName() {
+    return document.documentElement.dataset.theme === "light" ? "light" : "dark";
+  }
+
+  function buildSprite() {
+    const s = document.createElement("canvas");
+    s.width = s.height = 64;
+    const c = s.getContext("2d");
+    const g = c.createRadialGradient(32, 32, 0, 32, 32, 32);
+    g.addColorStop(0, `rgba(${pal.glow},1)`);
+    g.addColorStop(1, `rgba(${pal.glow},0)`);
+    c.fillStyle = g;
+    c.fillRect(0, 0, 64, 64);
+    sprite = s;
+  }
+
+  function buildBase() {
+    const g = ctx.createLinearGradient(0, 0, 0, H);
+    const n = pal.bg.length;
+    pal.bg.forEach((col, i) => g.addColorStop(i / (n - 1), col));
+    baseGrad = g;
+  }
+
+  function applyTheme() {
+    pal = PALETTE[themeName()];
+    buildSprite();
+    buildBase();
+    if (!rafId) draw();
+  }
 
   function resize(force) {
     const nw = window.innerWidth, nh = window.innerHeight;
     // Phones fire "resize" while scrolling (address bar hides/shows).
     // Ignore small height-only changes so the canvas is not rebuilt constantly.
     const sameSize = Math.abs(nw - W) < 1 && Math.abs(nh - H) < 150;
-    if (force !== true && sameSize && W) {
-      if (!rafId) draw(); // e.g. theme changed — just repaint one frame
-      return;
-    }
-    dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
+    if (force !== true && sameSize && W) return;
     W = nw; H = nh;
-    canvas.width = W * dpr; canvas.height = H * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    canvas.width = Math.round(W * SCALE);
+    canvas.height = Math.round(H * SCALE);
+    ctx.setTransform(SCALE, 0, 0, SCALE, 0, 0);
     const count = Math.round(Math.min(MAX_PARTICLES, (W * H) / 16000));
     particles = Array.from({ length: count }, makeParticle);
-    draw(); // render a still frame even when paused
+    buildBase();
+    draw();
   }
 
   function makeParticle() {
     return {
       x: Math.random() * W, y: Math.random() * H,
-      r: Math.random() * 2.4 + 0.6,
+      r: Math.random() * 2.4 + 0.8,
       vx: (Math.random() - 0.5) * 0.25, vy: -(Math.random() * 0.35 + 0.08),
       depth: Math.random() * 0.9 + 0.1,
       tw: Math.random() * Math.PI * 2,
@@ -79,19 +123,14 @@
   }
 
   function drawBase() {
-    const light = document.documentElement.dataset.theme === "light";
-    const g = ctx.createLinearGradient(0, 0, 0, H);
-    if (light) { g.addColorStop(0, "#f8eedc"); g.addColorStop(1, "#e8d2a8"); }
-    else { g.addColorStop(0, "#1c110a"); g.addColorStop(0.55, "#2c1a10"); g.addColorStop(1, "#4b2a15"); }
-    ctx.fillStyle = g;
+    ctx.fillStyle = baseGrad;
     ctx.fillRect(0, 0, W, H);
   }
 
   // Layered sine-wave "hills" that read like topographic contour lines
   function drawWaves() {
-    const layers = WAVE_LAYERS;
-    for (let i = 0; i < layers; i++) {
-      const k = i / layers;
+    for (let i = 0; i < WAVE_LAYERS; i++) {
+      const k = i / WAVE_LAYERS;
       const baseY = H * (0.35 + k * 0.7) + py * (8 + i * 2);
       const amp = 22 + k * 46;
       const freq = 0.0016 + k * 0.0009;
@@ -103,12 +142,12 @@
           + Math.sin(x * freq * 2.3 - speed * 1.4) * amp * 0.35;
         x === -10 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
       }
-      ctx.strokeStyle = `rgba(224,160,48,${0.05 + k * 0.1})`;
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = `rgba(${pal.wave},${(0.06 + k * 0.1) * pal.waveBoost})`;
+      ctx.lineWidth = 1.2;
       ctx.stroke();
-      if (i % 3 === 0) { // soft filled hill for depth
+      if (i % 3 === 0) { // soft filled brown hill for depth
         ctx.lineTo(W + 10, H + 10); ctx.lineTo(-10, H + 10); ctx.closePath();
-        ctx.fillStyle = `rgba(139,69,19,${0.025 + k * 0.035})`;
+        ctx.fillStyle = `rgba(${pal.hill},${0.04 + k * 0.05})`;
         ctx.fill();
       }
     }
@@ -119,12 +158,11 @@
       const x = p.x + px * 30 * p.depth;
       const y = p.y + py * 30 * p.depth;
       const a = 0.25 + 0.35 * (0.5 + 0.5 * Math.sin(p.tw));
-      const grd = ctx.createRadialGradient(x, y, 0, x, y, p.r * 5);
-      grd.addColorStop(0, `rgba(240,190,90,${a * p.depth})`);
-      grd.addColorStop(1, "rgba(240,190,90,0)");
-      ctx.fillStyle = grd;
-      ctx.beginPath(); ctx.arc(x, y, p.r * 5, 0, Math.PI * 2); ctx.fill();
+      const s = p.r * 10;
+      ctx.globalAlpha = a * p.depth;
+      ctx.drawImage(sprite, x - s / 2, y - s / 2, s, s);
     }
+    ctx.globalAlpha = 1;
   }
 
   function step() {
@@ -142,7 +180,7 @@
 
   function loop(ts) {
     rafId = requestAnimationFrame(loop);
-    if (FRAME_MS && ts - lastTs < FRAME_MS) return; // frame cap on mobile
+    if (FRAME_MS && ts - lastTs < FRAME_MS) return;
     lastTs = ts;
     t += 16;
     px += (mouseX - px) * 0.04;
@@ -155,29 +193,49 @@
   }
 
   function startLoopIfAllowed() {
-    if (motionOn && !document.hidden && !lbOpen && !rafId) rafId = requestAnimationFrame(loop);
+    if (motionOn && !document.hidden && !lbOpen && !scrolling && !rafId) {
+      rafId = requestAnimationFrame(loop);
+    }
+  }
+
+  function motionText(on) {
+    return isNe() ? (on ? "गति चालु" : "गति बन्द") : (on ? "Motion on" : "Motion off");
   }
 
   function setMotion(on) {
     motionOn = on;
-    toggle.setAttribute("aria-pressed", String(!on));
-    toggleLabel.textContent = on ? "Motion on" : "Motion off";
+    toggle.setAttribute("aria-pressed", String(on));
+    toggleLabel.textContent = motionText(on);
     try { localStorage.setItem("motion", on ? "on" : "off"); } catch (e) {}
     stopLoop();
-    if (on && !document.hidden && !lbOpen) startLoopIfAllowed(); else draw();
+    if (on) startLoopIfAllowed(); else draw();
   }
 
   window.addEventListener("resize", () => resize());
-  if (!isMobile) {
+  window.addEventListener("themechange", applyTheme);
+  window.addEventListener("langchange", () => { toggleLabel.textContent = motionText(motionOn); });
+
+  if (isMobile) {
+    // Pause the wallpaper while the visitor scrolls, resume 160 ms after they stop
+    let scrollTimer = null;
+    window.addEventListener("scroll", () => {
+      if (!scrolling) { scrolling = true; stopLoop(); }
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => { scrolling = false; startLoopIfAllowed(); }, 160);
+    }, { passive: true });
+  } else {
     window.addEventListener("mousemove", (e) => {
       mouseX = e.clientX / W - 0.5; mouseY = e.clientY / H - 0.5;
-    });
+    }, { passive: true });
   }
+
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) stopLoop();
-    else startLoopIfAllowed();
+    if (document.hidden) stopLoop(); else startLoopIfAllowed();
   });
   toggle.addEventListener("click", () => setMotion(!motionOn));
+
+  pal = PALETTE[themeName()];
+  buildSprite();
   resize(true);
   setMotion(motionOn);
 
@@ -192,37 +250,6 @@
   $$("#navLinks a").forEach((a) => a.addEventListener("click", () => {
     navLinks.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false");
   }));
-
-  /* =========================================================
-     TYPED TEXT in the hero
-     ========================================================= */
-  const typedEl = $("#typed");
-  if (prefersReduced) {
-    typedEl.textContent = TYPED_PHRASES[0];
-  } else {
-    let pi = 0, ci = 0, deleting = false;
-    (function tick() {
-      const word = TYPED_PHRASES[pi];
-      typedEl.textContent = word.slice(0, ci);
-      let delay = deleting ? 35 : 75;
-      if (!deleting && ci === word.length) { deleting = true; delay = 1600; }
-      else if (deleting && ci === 0) { deleting = false; pi = (pi + 1) % TYPED_PHRASES.length; delay = 350; }
-      ci += deleting ? -1 : 1;
-      setTimeout(tick, delay);
-    })();
-  }
-
-  /* =========================================================
-     SCROLL REVEAL
-     ========================================================= */
-  if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    $$(".reveal").forEach((el) => io.observe(el));
-  } else {
-    $$(".reveal").forEach((el) => el.classList.add("in"));
-  }
 
   /* =========================================================
      PHOTO FALLBACKS — if an image fails to load, show a tidy
@@ -256,8 +283,8 @@
 
   /* =========================================================
      LIGHTBOX — gallery modal with keyboard + swipe support.
-     The wallpaper animation is paused while it is open, so
-     opening a photo is smooth.
+     The wallpaper is paused while it is open, so opening a
+     photo is smooth.
      ========================================================= */
   const lb = $("#lightbox"), lbImg = $("#lbImg"), lbCap = $("#lbCap");
   const items = $$("#gallery .g-item");
@@ -266,9 +293,10 @@
   function show(i) {
     current = (i + items.length) % items.length;
     const el = $("img, .ph", items[current]);
-    const name = el.dataset.name || `Photo ${current + 1}`;
-    lbCap.textContent = `${name} · ${current + 1} / ${items.length}`;
-    // Replace content depending on whether the thumb is an image or a placeholder
+    const n = current + 1, total = items.length;
+    lbCap.textContent = isNe()
+      ? `क्षण ${neDigits(n)} / ${neDigits(total)}`
+      : `Moment ${n} / ${total}`;
     const holder = lbImg.parentElement;
     const old = $("#lbImg") || $(".ph", holder);
     let node;
@@ -287,13 +315,13 @@
   }
   function open(i) {
     lastFocus = document.activeElement;
-    lbOpen = true; stopLoop(); // pause the wallpaper
+    lbOpen = true; stopLoop();
     lb.hidden = false; document.body.style.overflow = "hidden";
     show(i); $("#lbClose").focus({ preventScroll: true });
   }
   function close() {
     lb.hidden = true; document.body.style.overflow = "";
-    lbOpen = false; startLoopIfAllowed(); // resume the wallpaper
+    lbOpen = false; startLoopIfAllowed();
     if (lastFocus) lastFocus.focus({ preventScroll: true });
   }
   items.forEach((btn, i) => btn.addEventListener("click", () => open(i)));
@@ -320,6 +348,22 @@
      instead (Formspree, Web3Forms, etc.), replace the submit
      handler with a fetch() POST to your endpoint.
      ========================================================= */
+  const MSG = {
+    en: {
+      fill: "Please fill in all fields.",
+      opening: "Opening your email app… if nothing opens, use “Copy email address”.",
+      copied: "Email address copied ✔",
+      email: "Email: ",
+    },
+    ne: {
+      fill: "कृपया सबै फिल्डहरू भर्नुहोस्।",
+      opening: "तपाईंको इमेल एप खुल्दैछ… केही नखुले “इमेल ठेगाना कपी गर्नुहोस्” थिच्नुहोस्।",
+      copied: "इमेल ठेगाना कपी भयो ✔",
+      email: "इमेल: ",
+    },
+  };
+  const msg = () => MSG[isNe() ? "ne" : "en"];
+
   const form = $("#feedbackForm"), statusEl = $("#formStatus");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -330,12 +374,12 @@
       f.classList.toggle("invalid", bad);
       if (bad) ok = false;
     });
-    if (!ok) { statusEl.textContent = "Please fill in all fields."; return; }
+    if (!ok) { statusEl.textContent = msg().fill; return; }
 
-    const name = fields[0].value.trim(), contact = fields[1].value.trim(), msg = fields[2].value.trim();
+    const name = fields[0].value.trim(), contact = fields[1].value.trim(), text = fields[2].value.trim();
     const subject = `Portfolio feedback from ${name}`;
-    const body = `Name: ${name}\nContact: ${contact}\n\nMessage:\n${msg}`;
-    statusEl.textContent = "Opening your email app… if nothing opens, use “Copy email address”.";
+    const body = `Name: ${name}\nContact: ${contact}\n\nMessage:\n${text}`;
+    statusEl.textContent = msg().opening;
     window.location.href = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
   form.addEventListener("input", (e) => e.target.classList.remove("invalid"));
@@ -343,9 +387,9 @@
   $("#copyEmail").addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(SUPPORT_EMAIL);
-      statusEl.textContent = "Email address copied ✔";
+      statusEl.textContent = msg().copied;
     } catch (err) {
-      statusEl.textContent = `Email: ${SUPPORT_EMAIL}`;
+      statusEl.textContent = msg().email + SUPPORT_EMAIL;
     }
   });
 
