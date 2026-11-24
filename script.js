@@ -288,14 +288,9 @@
     if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
   });
 
-  // Hero photo also opens in the viewer-free way (no gallery link) — left simple on purpose.
+  // He
 
-  /* =========================================================
-     FEEDBACK FORM — opens the visitor's email app with a
-     pre-filled message (mailto). To use a real form backend
-     instead (Formspree, Web3Forms, etc.), replace the submit
-     handler with a fetch() POST to your endpoint.
-     ========================================================= */
+
   const form = $("#feedbackForm"), statusEl = $("#formStatus");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
