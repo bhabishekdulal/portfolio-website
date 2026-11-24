@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bhabishek Dulal</title>
-  <meta name="description" content="Personal portfolio of Bhabishek Dulal: B.Sc. CSIT student, YouTuber, aspiring public servant and NEPSE learner from Nepal." />
+  <title>Bhabishek Dulal — Portfolio</title>
+  <meta name="description" content="Personal portfolio of Bhabishek Dulal: student, educational YouTuber, aspiring public servant, and NEPSE learner from Nepal." />
   <script>
-    /* Set the saved theme before the page paints (prevents a flash) */
     try {
       var t = localStorage.getItem("theme");
       if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
@@ -15,8 +14,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%233a2018'/><text x='50' y='66' font-size='52' text-anchor='middle' fill='%23f7b5cd' font-family='Georgia' font-weight='700'>BD</text></svg>" />
-  <meta name="theme-color" content="#1b0f0d" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%232c1610'/><text x='50' y='67' font-size='50' text-anchor='middle' fill='%23f7b5cd' font-family='Georgia' font-weight='700'>BD</text></svg>" />
+  <meta name="theme-color" content="#180c09" />
   <meta property="og:title" content="Bhabishek Dulal — Portfolio" />
   <meta property="og:description" content="Educational YouTuber and aspiring public servant from Nepal." />
   <meta property="og:type" content="website" />
@@ -24,15 +23,20 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Live wallpaper: the ONLY moving part of the site (see script.js) -->
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- GPU-lightweight Miami Pink + Brown ambient canvas -->
   <canvas id="bg" aria-hidden="true"></canvas>
   <div class="bg-vignette" aria-hidden="true"></div>
 
   <!-- ===== NAVIGATION ===== -->
   <header class="nav" id="top">
     <a href="#hero" class="brand" aria-label="Bhabishek Dulal — home">
-      <span class="mono"></span><span class="brand-name">Bhabishek Dulal</span>
+      <span class="brand-mark" aria-hidden="true">BD</span>
+      <span class="brand-name">Bhabishek Dulal</span>
     </a>
+
     <nav aria-label="Primary">
       <ul id="navLinks">
         <li><a href="#about" data-ne="परिचय">About</a></li>
@@ -44,13 +48,14 @@
         <li><a href="#feedback" data-ne="प्रतिक्रिया">Feedback</a></li>
       </ul>
     </nav>
+
     <div class="nav-tools">
-      <button class="tool" id="langToggle" title="Language">नेपाली</button>
-      <button class="tool" id="themeToggle" title="Theme">☀️</button>
-      <button class="tool motion-toggle" id="motionToggle" aria-pressed="true" title="Toggle background animation">
-        <span class="dot"></span><span id="motionLabel">Motion on</span>
+      <button class="tool" id="langToggle" type="button" title="Switch language">नेपाली</button>
+      <button class="tool" id="themeToggle" type="button" title="Toggle light or dark theme" aria-label="Toggle theme">☀️</button>
+      <button class="tool motion-toggle" id="motionToggle" type="button" aria-pressed="true" title="Toggle ambient background">
+        <span class="dot"></span><span id="motionLabel">Motion</span>
       </button>
-      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Toggle menu" aria-expanded="false">☰</button>
     </div>
   </header>
 
@@ -58,51 +63,128 @@
     <!-- ===== HERO ===== -->
     <section class="hero" id="hero">
       <div class="hero-text">
-        <p class="eyebrow" data-ne="नमस्ते 🙏 म हुँ">Namaste 🙏 I'm</p>
+        <div class="eyebrow-row">
+          <p class="eyebrow" data-ne="नमस्ते 🙏 म हुँ">Namaste 🙏 I'm</p>
+          <span class="miami-pill" data-ne="मियामी पिंक × ब्राउन एडिसन">Miami Pink × Cacao Edition</span>
+        </div>
+
         <h1>Bhabishek <em>Dulal</em></h1>
-        <p class="lead" data-ne="विद्यार्थी, सिर्जनशील युट्युबर — नेपालको सेवा गर्ने सपना बोकेको।">Student, Creator — Dreaming of serving Nepal.</p>
+        <p class="lead" data-ne="विद्यार्थी, शैक्षिक युट्युबर — इमानदारी र लगनशीलतासाथ नेपालको सेवा गर्ने सपना बोकेको।">
+          Student &amp; Educational Creator — Dreaming of serving Nepal with purpose.
+        </p>
+
         <ul class="badges">
           <li data-ne="आमा नर्स र बुबा शिक्षकको गर्वित छोरा">Proud son of a Nurse &amp; a Teacher</li>
-          <li data-ne="शैक्षिक सामग्री निर्माता">Educational Content Creator</li>
+          <li data-ne="लोकसेवा तथा नेप्से जिज्ञासु">Lok Sewa &amp; NEPSE Learner</li>
         </ul>
+
         <div class="hero-cta">
-          <a href="#about" class="btn primary" data-ne="मलाई चिनौं">Know me</a>
-          <a href="#connect" class="btn ghost" data-ne="सम्पर्क गर्नुहोस्">Get in touch</a>
+          <a href="#about" class="btn primary" data-ne="यात्रा हेर्नुहोस्">Explore journey</a>
+          <a href="#feedback" class="btn ghost" data-ne="प्रतिक्रिया दिनुहोस्">Leave feedback</a>
         </div>
+
         <ul class="facts">
           <li><strong data-ne="३.९०">3.90</strong><span data-ne="कक्षा १२ GPA">Class 12 GPA</span></li>
           <li><strong data-ne="दोलखा">Dolakha</strong><span data-ne="गृह जिल्ला">Home district</span></li>
-          <li><strong data-ne="काठमाडौं">Kathmandu</strong><span data-ne="अध्ययन गर्दै">Studying in</span></li>
+          <li><strong data-ne="काठमाडौं">Kathmandu</strong><span data-ne="अध्ययनरत">Based in</span></li>
         </ul>
       </div>
+
       <figure class="hero-photo">
         <div class="frame">
           <img class="photo" data-name="Bhabishek Dulal" src="photos/1787139701925.png"
                alt="Portrait of Bhabishek Dulal" referrerpolicy="no-referrer" fetchpriority="high" />
+          <span class="frame-tag" data-ne="शैलुङ, दोलखा → काठमाडौं">Dolakha → Kathmandu</span>
         </div>
-        <figcaption>Bhabishek Dulal</figcaption>
+        <figcaption data-ne="भविशेक दुलाल — विद्यार्थी तथा सामग्री निर्माता">Bhabishek Dulal — Student &amp; Creator</figcaption>
       </figure>
     </section>
 
-    <!-- ===== ABOUT + GALLERY ===== -->
-    <section id="about" class="section">
-      <h2 data-ne="मेरो <em>बारेमा</em>">About <em>Me</em></h2>
-      <p class="section-intro" data-ne="मेरो नाम भविशेक दुलाल हो। मेरो स्थायी ठेगाना शैलुङ-०५, दोलखा हो र म चरिकोट, दोलखामा हुर्केको हुँ। हाल म अध्ययनका क्रममा काठमाडौं, नेपालमा बसोबास गर्छु। म प्रविधि, निरन्तर सिकाइ र देशको सेवा गर्ने लक्ष्यबाट प्रेरित छु। मेरो यात्राका केही क्षणहरू तल छन् — ठूलो हेर्न कुनै पनि फोटोमा ट्याप गर्नुहोस्।">My name is Bhabishek Dulal (भविशेक दुलाल). My permanent address is in Shailung-05, Dolakha, and grew up in Charikot, Dolakha. I currently live in Kathmandu, Nepal, while pursuing my studies. I am driven by technology, continuous learning, and a goal to serve my country. Below are a few moments from my journey — tap any photo to enlarge.</p>
+    <!-- ===== ABOUT + CURATED PHOTO SHOWCASE ===== -->
+    <section id="about" class="section reveal">
+      <div class="section-head">
+        <div>
+          <h2 data-ne="मेरो <em>बारेमा</em>">About <em>Me</em></h2>
+          <p class="section-intro" data-ne="मेरो नाम भविशेक दुलाल हो। मेरो स्थायी ठेगाना शैलुङ-०५, दोलखा हो र म चरिकोट, दोलखामा हुर्केको हुँ। हाल म अध्ययनका क्रममा काठमाडौं, नेपालमा बसोबास गर्छु। म प्रविधि, निरन्तर सिकाइ र देशको सेवा गर्ने लक्ष्यबाट प्रेरित छु।">
+            My name is Bhabishek Dulal (भविशेक दुलाल). My permanent address is Shailung-05, Dolakha, and I grew up in Charikot, Dolakha. I currently live in Kathmandu, Nepal, pursuing my studies, driven by technology, continuous learning, and a commitment to serving my nation.
+          </p>
+        </div>
+      </div>
+
+      <div class="photo-toolbar">
+        <span class="photo-count" id="photoCount" data-ne="८ विशेष क्षणहरू · ठूलो हेर्न क्लिक गर्नुहोस्">8 curated moments · Click any photo to view full screen</span>
+      </div>
+
+      <!-- Arranged Bento Photo Grid -->
       <div class="gallery" id="gallery">
-        <!-- All photos live in the "photos" folder next to index.html -->
-        <button class="g-item" data-index="0" aria-label="Open photo 1"><img class="photo" data-name="Photo 1" alt="Bhabishek Dulal — photo 1" loading="lazy" referrerpolicy="no-referrer" src="photos/IMG_20260707_141635521.jpg" /></button>
-        <button class="g-item" data-index="1" aria-label="Open photo 2"><img class="photo" data-name="Photo 2" alt="Bhabishek Dulal — photo 2" loading="lazy" referrerpolicy="no-referrer" src="photos/IMG_8659.jpeg" /></button>
-        <button class="g-item" data-index="2" aria-label="Open photo 3"><img class="photo" data-name="Photo 3" alt="Bhabishek Dulal — photo 3" loading="lazy" referrerpolicy="no-referrer" src="photos/IMG-20260216-WA0009.jpg" /></button>
-        <button class="g-item" data-index="3" aria-label="Open photo 4"><img class="photo" data-name="Photo 4" alt="Bhabishek Dulal — photo 4" loading="lazy" referrerpolicy="no-referrer" src="photos/Picsart_25-10-11_09-32-33-747.jpg" /></button>
-        <button class="g-item" data-index="4" aria-label="Open photo 5"><img class="photo" data-name="Photo 5" alt="Bhabishek Dulal — photo 5" loading="lazy" referrerpolicy="no-referrer" src="photos/Picsart_26-03-26_14-57-42-803.jpg" /></button>
-        <button class="g-item" data-index="5" aria-label="Open photo 6"><img class="photo" data-name="Photo 6" alt="Bhabishek Dulal — photo 6" loading="lazy" referrerpolicy="no-referrer" src="photos/IMG-20261106-WA0096.jpg" /></button>
-        <button class="g-item" data-index="6" aria-label="Open photo 7"><img class="photo" data-name="Photo 7" alt="Bhabishek Dulal — photo 7" loading="lazy" referrerpolicy="no-referrer" src="photos/IMG-20260214-WA0032.jpg" /></button>
-        <button class="g-item" data-index="7" aria-label="Open photo 8"><img class="photo" data-name="Photo 8" alt="Bhabishek Dulal — photo 8" loading="lazy" referrerpolicy="no-referrer" src="photos/IMG-20260711-WA0010.jpg" /></button>
+        <button class="g-item featured" data-index="0" type="button" aria-label="Open photo 1: Charikot & Dolakha days">
+          <img class="photo" data-name="Moment 01 — Dolakha Roots" alt="Bhabishek Dulal — Moment 1" loading="lazy" referrerpolicy="no-referrer" src="photos/IMG_20260707_141635521.jpg" />
+          <span class="g-meta">
+            <small data-ne="क्षण ०१">MOMENT 01</small>
+            <strong data-ne="दोलखाको सम्झना">Dolakha Roots</strong>
+          </span>
+        </button>
+
+        <button class="g-item" data-index="1" type="button" aria-label="Open photo 2: Campus & learning">
+          <img class="photo" data-name="Moment 02 — Campus Life" alt="Bhabishek Dulal — Moment 2" loading="lazy" referrerpolicy="no-referrer" src="photos/IMG_8659.jpeg" />
+          <span class="g-meta">
+            <small data-ne="क्षण ०२">MOMENT 02</small>
+            <strong data-ne="अध्ययन र यात्रा">Campus &amp; Study</strong>
+          </span>
+        </button>
+
+        <button class="g-item" data-index="2" type="button" aria-label="Open photo 3: Everyday frames">
+          <img class="photo" data-name="Moment 03 — Kathmandu Days" alt="Bhabishek Dulal — Moment 3" loading="lazy" referrerpolicy="no-referrer" src="photos/IMG-20260216-WA0009.jpg" />
+          <span class="g-meta">
+            <small data-ne="क्षण ०३">MOMENT 03</small>
+            <strong data-ne="काठमाडौंका दिनहरू">Kathmandu Days</strong>
+          </span>
+        </button>
+
+        <button class="g-item" data-index="3" type="button" aria-label="Open photo 4: Creative edit">
+          <img class="photo" data-name="Moment 04 — Creative Frame" alt="Bhabishek Dulal — Moment 4" loading="lazy" referrerpolicy="no-referrer" src="photos/Picsart_25-10-11_09-32-33-747.jpg" />
+          <span class="g-meta">
+            <small data-ne="क्षण ०४">MOMENT 04</small>
+            <strong data-ne="सिर्जनशील फ्रेम">Creative Frame</strong>
+          </span>
+        </button>
+
+        <button class="g-item" data-index="4" type="button" aria-label="Open photo 5: Outdoor capture">
+          <img class="photo" data-name="Moment 05 — Out & About" alt="Bhabishek Dulal — Moment 5" loading="lazy" referrerpolicy="no-referrer" src="photos/Picsart_26-03-26_14-57-42-803.jpg" />
+          <span class="g-meta">
+            <small data-ne="क्षण ०५">MOMENT 05</small>
+            <strong data-ne="बाहिरी पलहरू">Out &amp; About</strong>
+          </span>
+        </button>
+
+        <button class="g-item" data-index="5" type="button" aria-label="Open photo 6: Recent memory">
+          <img class="photo" data-name="Moment 06 — Recent Memory" alt="Bhabishek Dulal — Moment 6" loading="lazy" referrerpolicy="no-referrer" src="photos/IMG-20261106-WA0096.jpg" />
+          <span class="g-meta">
+            <small data-ne="क्षण ०६">MOMENT 06</small>
+            <strong data-ne="ताजा सम्झना">Recent Memory</strong>
+          </span>
+        </button>
+
+        <button class="g-item" data-index="6" type="button" aria-label="Open photo 7: Special day">
+          <img class="photo" data-name="Moment 07 — Milestones" alt="Bhabishek Dulal — Moment 7" loading="lazy" referrerpolicy="no-referrer" src="photos/IMG-20260214-WA0032.jpg" />
+          <span class="g-meta">
+            <small data-ne="क्षण ०७">MOMENT 07</small>
+            <strong data-ne="विशेष क्षण">Milestone</strong>
+          </span>
+        </button>
+
+        <button class="g-item wide" data-index="7" type="button" aria-label="Open photo 8: Perspective & growth">
+          <img class="photo" data-name="Moment 08 — Growth & Perspective" alt="Bhabishek Dulal — Moment 8" loading="lazy" referrerpolicy="no-referrer" src="photos/IMG-20260711-WA0010.jpg" />
+          <span class="g-meta">
+            <small data-ne="क्षण ०८">MOMENT 08</small>
+            <strong data-ne="यात्रा र दृष्टिकोण">Growth &amp; Perspective</strong>
+          </span>
+        </button>
       </div>
     </section>
 
     <!-- ===== ACADEMICS ===== -->
-    <section id="academics" class="section">
+    <section id="academics" class="section reveal">
       <h2 data-ne="शैक्षिक <em>यात्रा</em>">Academic <em>Journey</em></h2>
       <div class="edu-grid">
         <article class="card edu">
@@ -112,10 +194,11 @@
           <p class="muted" data-ne="सेन्ट लरेन्स माध्यमिक विद्यालय, चाबहिल, काठमाडौं">St. Lawrence Secondary School, Chabahil, Kathmandu</p>
           <p data-ne="<strong>३.९० GPA</strong> सहित उत्तीर्ण।">Completed with a <strong>3.90 GPA</strong>.</p>
         </article>
+
         <article class="card edu">
           <span class="tag" data-ne="२०८० वि.सं.">2080 BS</span>
           <div class="gpa" aria-hidden="true"><strong data-ne="३.५९">3.59</strong><small>GPA</small></div>
-          <h3 data-ne="कक्षा १० — SEE">Class 10 — SEE</h3>
+          <h3 data-ne="कक्षा १० — SEE</h3>
           <p class="muted" data-ne="द राइजिङ स्टार स्कुल, चरिकोट, दोलखा">The Rising Star School, Charikot, Dolakha</p>
           <p data-ne="<strong>३.५९ GPA</strong> सहित उत्तीर्ण।">Completed with a <strong>3.59 GPA</strong>.</p>
         </article>
@@ -128,20 +211,22 @@
     </section>
 
     <!-- ===== VISION ===== -->
-    <section id="vision" class="section">
+    <section id="vision" class="section reveal">
       <h2 data-ne="रुचि तथा <em>लक्ष्य</em>">Interests &amp; <em>Vision</em></h2>
       <div class="grid-2">
         <article class="card">
           <div class="icon">🏛️</div>
           <h3 data-ne="लोकसेवा आयोग">Lok Sewa Aayog</h3>
-          <p data-ne="नेपाल लोकसेवा आयोगको परीक्षा तयारीमा गहिरो रुचि, इमानदारी र लगनशीलताका साथ <strong>नेपाल सरकार</strong> को सेवा गर्ने लक्ष्य।">A strong interest in preparing for the Nepal Public Service Commission (Lok Sewa Aayog) exams, with the aim of serving the <strong>Government of Nepal</strong> with honesty and diligence.</p>
+          <p data-ne="नेपाल लोकसेवा आयोगको परीक्षा तयारीमा गहिरो रुचि, इमानदारी र लगनशीलताका साथ <strong>नेपाल सरकार</strong> को सेवा गर्ने लक्ष्य।">A strong interest in preparing for the Nepal Public Service Commission (Lok Sewa Aayog) exams, aiming to serve the <strong>Government of Nepal</strong> with honesty and diligence.</p>
         </article>
+
         <article class="card">
           <div class="icon">📈</div>
           <h3 data-ne="नेप्से तथा लगानी">NEPSE &amp; Investing</h3>
           <p data-ne="नेपाल स्टक एक्सचेन्ज (NEPSE) मा आधारभूत विश्लेषण र दीर्घकालीन शेयर लगानीमा जोश — केवल मूल्य होइन, व्यवसाय बुझ्ने प्रयास।">Passionate about fundamental analysis and long-term equity investing in the Nepal Stock Exchange (NEPSE) — understanding businesses, not just prices.</p>
         </article>
       </div>
+
       <blockquote class="motto">
         <span lang="ne">धेरै छ गर्न स्वदेशको सेवा नेपाली भन्न लाई</span>
         <footer data-ne="मेरो मार्गदर्शक मन्त्र">My guiding motto</footer>
@@ -149,24 +234,24 @@
     </section>
 
     <!-- ===== YOUTUBE ===== -->
-    <section id="youtube" class="section">
+    <section id="youtube" class="section reveal">
       <h2 data-ne="युट्युब <em>अनुभव</em>">YouTube <em>Experience</em></h2>
       <div class="card yt">
         <div class="yt-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="56" height="56"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+          <svg viewBox="0 0 24 24" width="52" height="52"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
         </div>
         <div>
           <h3>Bhabishek Dulal</h3>
-          <p data-ne="मैले आफ्नो च्यानल धेरै क्रिएटरले जस्तै सुरुवाती चरणमा <strong>गेमिङ भिडियो</strong> बनाएर सुरु गरेको हुँ। समयसँगै सोचविचार गरेर <strong>शैक्षिक सामग्री</strong> तर्फ मोडिएँ — जसले दर्शक बढाउन र मेरो आफ्नै शैक्षिक जग बलियो बनाउन मद्दत गर्छ। आफूले सिकेको सिकाउँदा म तेज रहन्छु र दर्शकले साँच्चै उपयोगी कुरा पाउँछन्।">I started my channel the way many creators do — by making <strong>gaming videos</strong> in the early stage. As I grew, I thoughtfully pivoted to <strong>educational content</strong>: material that helps grow my audience while strengthening my own academic foundation. Teaching what I learn keeps me sharp and gives viewers something truly useful.</p>
+          <p data-ne="मैले आफ्नो च्यानल धेरै क्रिएटरले जस्तै सुरुवाती चरणमा <strong>गेमिङ भिडियो</strong> बनाएर सुरु गरेको हुँ। समयसँगै सोचविचार गरेर <strong>शैक्षिक सामग्री</strong> तर्फ मोडिएँ — जसले दर्शक बढाउन र मेरो आफ्नै शैक्षिक जग बलियो बनाउन मद्दत गर्छ। आफूले सिकेको सिकाउँदा म तेज रहन्छु र दर्शकले साँच्चै उपयोगी कुरा पाउँछन्।">I started my channel the way many creators do — by making <strong>gaming videos</strong> early on. Over time, I thoughtfully pivoted to <strong>educational content</strong>: material that grows my audience while strengthening my own academic foundation. Teaching what I learn keeps me sharp and gives viewers something genuinely useful.</p>
           <a class="btn primary" href="https://youtube.com/@bhabishek.withyou?si=JcuUwDNBdnpRdybT" target="_blank" rel="noopener" data-ne="च्यानल हेर्नुहोस् ↗">Visit the channel ↗</a>
         </div>
       </div>
     </section>
 
     <!-- ===== FAMILY ===== -->
-    <section id="family" class="section">
+    <section id="family" class="section reveal">
       <h2 data-ne="मेरो <em>परिवार</em>">My <em>Family</em></h2>
-      <p class="section-intro" data-ne="म जे छु, त्यसको सुरुवात ती दुई व्यक्तिबाट भएको हो जसले मलाई अनुशासन, सेवा र मेहनत सिकाए।">Everything I am starts with the two people who taught me discipline, service and hard work.</p>
+      <p class="section-intro" data-ne="म जे छु, त्यसको सुरुवात ती दुई व्यक्तिबाट भएको हो जसले मलाई अनुशासन, सेवा र मेहनत सिकाए।">Everything I am starts with the two people who taught me discipline, service, and hard work.</p>
 
       <div class="family-grid">
         <article class="card person">
@@ -177,8 +262,8 @@
           <div class="body">
             <span class="tag" data-ne="आमा">Mother</span>
             <h3>Bhagawati Neupane</h3>
-            <p data-ne="लगभग २००६ ई.सं. (~२०६३ वि.सं.) तिर सुरु गर्नुभएकी <strong>२० वर्षको अनुभव</strong> भएकी दर्ताप्राप्त नर्स। उहाँ हाल <strong>धुलिखेल अस्पताल, दोलखा आउटरिच</strong> मा कार्यरत हुनुहुन्छ, र यसअघि <strong>काठमाडौं मोडेल अस्पताल, दोलखा आउटरिच</strong> तथा करियरको सुरुमा विभिन्न <strong>सरकारी स्वास्थ्य संस्थाहरू</strong> मा सेवा गर्नुभएको थियो।">A registered nurse with <strong>20 years of experience</strong>, beginning around 2006 AD (~2063 BS). She currently serves at <strong>Dhulikhel Hospital, Dolakha Outreach</strong>, with earlier experience at <strong>Kathmandu Model Hospital, Dolakha Outreach</strong> and in various <strong>Government Health Institutions</strong> at the start of her career.</p>
-            <p data-ne="उहाँले आफ्नो शैक्षिक यात्रा <strong>जिरी, दोलखा</strong> मा पूरा गर्नुभयो, र उहाँको समर्पण तथा कडा परिश्रम नै मेरो सबैभन्दा ठूलो प्रेरणा हो।">She completed her own academic journey in <strong>Jiri, Dolakha</strong>, and her dedication and hard work remain my greatest inspiration.</p>
+            <p data-ne="लगभग २००६ ई.सं. (~२०६३ वि.सं.) तिर सुरु गर्नुभएकी <strong>२० वर्षको अनुभव</strong> भएकी दर्ताप्राप्त नर्स। उहाँ हाल <strong>धुलिखेल अस्पताल, दोलखा आउटरिच</strong> मा कार्यरत हुनुहुन्छ, र यसअघि <strong>काठमाडौं मोडेल अस्पताल, दोलखा आउटरिच</strong> तथा करियरको सुरुमा विभिन्न <strong>सरकारी स्वास्थ्य संस्थाहरू</strong> मा सेवा गर्नुभएको थियो।">A registered nurse with <strong>20 years of experience</strong>, beginning around 2006 AD (~2063 BS). She currently serves at <strong>Dhulikhel Hospital, Dolakha Outreach</strong>, with earlier experience at <strong>Kathmandu Model Hospital, Dolakha Outreach</strong> and various <strong>Government Health Institutions</strong> early in her career.</p>
+            <p data-ne="उहाँले आफ्नो शैक्षिक यात्रा <strong>जिरी, दोलखा</strong> मा पूरा गर्नुभयो, र उहाँको समर्पण तथा कडा परिश्रम नै मेरो सबैभन्दा ठूलो प्रेरणा हो।">She completed her academic journey in <strong>Jiri, Dolakha</strong>, and her dedication and hard work remain my greatest inspiration.</p>
           </div>
         </article>
 
@@ -198,7 +283,7 @@
     </section>
 
     <!-- ===== SOCIAL / CONNECT ===== -->
-    <section id="connect" class="section">
+    <section id="connect" class="section reveal">
       <h2 data-ne="सामाजिक सञ्जाल तथा <em>सम्पर्क</em>">Social Media &amp; <em>Connect</em></h2>
       <div class="social">
         <a class="s-card" href="https://facebook.com/bhabishekdulal" target="_blank" rel="noopener">
@@ -225,31 +310,52 @@
     </section>
 
     <!-- ===== FEEDBACK ===== -->
-    <section id="feedback" class="section">
+    <section id="feedback" class="section reveal">
       <h2 data-ne="प्रतिक्रिया <em>पठाउनुहोस्</em>">Send <em>Feedback</em></h2>
       <div class="feedback-grid">
         <aside class="card fb-info">
           <div class="icon">💌</div>
           <h3 data-ne="कुरा गरौं">Let's talk</h3>
-          <p data-ne="तपाईंसँग सुझाव, प्रश्न वा सहकार्यको विचार छ? मलाई सन्देश पठाउनुहोस्।">Have a suggestion, a question or a collaboration idea? Send me a message.</p>
+          <p data-ne="तपाईंसँग सुझाव, प्रश्न वा सहकार्यको विचार छ? मलाई सन्देश पठाउनुहोस्।">Have a suggestion, a question, or a collaboration idea? Send me a message.</p>
           <p class="official" data-ne="आधिकारिक सहयोग तथा प्रतिक्रिया इमेल:">Official support &amp; feedback email:</p>
           <a class="mail-line" href="mailto:bhabishek.feedback.suppport@gmail.com">bhabishek.feedback.suppport@gmail.com</a>
           <button type="button" class="btn ghost" id="copyEmail" data-ne="इमेल ठेगाना कपी गर्नुहोस्">Copy email address</button>
+
+          <div class="recent-notes" id="recentNotesWrap" hidden>
+            <h4 data-ne="तपाईंको भर्खरको नोट">Your recent note</h4>
+            <div class="recent-note-box" id="recentNoteBox"></div>
+          </div>
         </aside>
 
         <div class="card form-card">
           <form id="feedbackForm" novalidate>
-            <label><span data-ne="नाम">Name</span>
-              <input type="text" id="fName" name="name" placeholder="Your name" data-ne-ph="तपाईंको नाम" required />
-            </label>
-            <label><span data-ne="इमेल / सम्पर्क">Email / Contact</span>
-              <input type="text" id="fContact" name="contact" placeholder="you@example.com or phone number" data-ne-ph="you@example.com वा फोन नम्बर" required />
-            </label>
+            <div class="topic-row">
+              <span class="topic-label" data-ne="विषय छान्नुहोस्:">Topic:</span>
+              <div class="topic-pills" role="group" aria-label="Feedback topic">
+                <button type="button" class="pill-btn active" data-topic="General" data-ne="सामान्य">General</button>
+                <button type="button" class="pill-btn" data-topic="YouTube" data-ne="युट्युब">YouTube</button>
+                <button type="button" class="pill-btn" data-topic="Lok Sewa & NEPSE" data-ne="लोकसेवा / नेप्से">Lok Sewa &amp; NEPSE</button>
+                <button type="button" class="pill-btn" data-topic="Collaboration" data-ne="सहकार्य">Collaboration</button>
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <label><span data-ne="नाम">Name</span>
+                <input type="text" id="fName" name="name" placeholder="Your name" data-ne-ph="तपाईंको नाम" required />
+              </label>
+              <label><span data-ne="इमेल / सम्पर्क">Email / Contact</span>
+                <input type="text" id="fContact" name="contact" placeholder="you@example.com or phone" data-ne-ph="you@example.com वा फोन नम्बर" required />
+              </label>
+            </div>
+
             <label><span data-ne="सन्देश">Message</span>
-              <textarea id="fMessage" name="message" rows="5" placeholder="Write your feedback or message…" data-ne-ph="आफ्नो प्रतिक्रिया वा सन्देश लेख्नुहोस्…" required></textarea>
+              <textarea id="fMessage" name="message" rows="4" placeholder="Write your feedback or message…" data-ne-ph="आफ्नो प्रतिक्रिया वा सन्देश लेख्नुहोस्…" required></textarea>
             </label>
-            <p class="form-status" id="formStatus" role="status"></p>
-            <button type="submit" class="btn primary" data-ne="इमेल एपबाट पठाउनुहोस्">Send via email app</button>
+
+            <div class="form-actions">
+              <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+              <button type="submit" class="btn primary" id="sendMailBtn" data-ne="इमेल एपबाट पठाउनुहोस्">Send via email app</button>
+            </div>
           </form>
         </div>
       </div>
@@ -276,16 +382,19 @@
 
   <!-- ===== LIGHTBOX ===== -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
-    <button class="lb-close" id="lbClose" aria-label="Close">×</button>
-    <button class="lb-nav prev" id="lbPrev" aria-label="Previous photo">‹</button>
+    <button class="lb-close" id="lbClose" type="button" aria-label="Close">×</button>
+    <button class="lb-nav prev" id="lbPrev" type="button" aria-label="Previous photo">‹</button>
     <figure>
       <img id="lbImg" alt="" />
       <figcaption id="lbCap"></figcaption>
     </figure>
-    <button class="lb-nav next" id="lbNext" aria-label="Next photo">›</button>
+    <button class="lb-nav next" id="lbNext" type="button" aria-label="Next photo">›</button>
   </div>
 
-  <button id="backTop" aria-label="Back to top">↑</button>
+  <!-- Live Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <button id="backTop" type="button" aria-label="Back to top">↑</button>
 
   <script src="script.js"></script>
   <script src="lang.js"></script>

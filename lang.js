@@ -1,45 +1,53 @@
-/* =========================================================
-   lang.js — English / नेपाली switch
-   HOW IT WORKS: any element with a  data-ne="..."  attribute
-   is translated. The English text already in the HTML is kept
-   as the original. For input placeholders use  data-ne-ph.
-   To edit a translation, change the data-ne text in index.html.
-   ========================================================= */
+/* ==========================================================================
+   Bilingual toggle (English <-> Nepali) with persistent choice
+   ========================================================================== */
 (function () {
-  "use strict";
+  const langToggle = document.getElementById("langToggle");
+  if (!langToggle) return;
 
-  const DEFAULT_LANG = "ne"; // change to "ne" if the site should open in Nepali
+  const STORAGE_KEY = "site_lang";
+  let currentLang = "en";
 
-  const btn = document.getElementById("langToggle");
-  const textEls = Array.from(document.querySelectorAll("[data-ne]"));
-  const phEls = Array.from(document.querySelectorAll("[data-ne-ph]"));
-
-  // Remember the English originals
-  textEls.forEach((el) => { el.dataset.en = el.innerHTML; });
-  phEls.forEach((el) => { el.dataset.enPh = el.placeholder; });
-
-  function apply(lang) {
-    const ne = lang === "ne";
-    textEls.forEach((el) => { el.innerHTML = ne ? el.dataset.ne : el.dataset.en; });
-    phEls.forEach((el) => { el.placeholder = ne ? el.dataset.nePh : el.dataset.enPh; });
-    document.documentElement.lang = lang;
-    if (btn) btn.textContent = ne ? "English" : "नेपाली";
-    try { localStorage.setItem("lang", lang); } catch (e) {}
-    window.dispatchEvent(new Event("langchange"));
-  }
-
-  let current = DEFAULT_LANG;
   try {
-    const saved = localStorage.getItem("lang");
-    if (saved === "en" || saved === "ne") current = saved;
-  } catch (e) {}
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === "ne" || saved === "en") currentLang = saved;
+  } catch (_) {}
 
-  apply(current);
+  // Cache original English innerHTML & placeholders once
+  const textEls = Array.from(document.querySelectorAll("[data-ne]")).map((el) => ({
+    el,
+    enHtml: el.innerHTML,
+    neHtml: el.getAttribute("data-ne")
+  }));
 
-  if (btn) {
-    btn.addEventListener("click", () => {
-      current = current === "ne" ? "en" : "ne";
-      apply(current);
-    });
+  const phEls = Array.from(document.querySelectorAll("[data-ne-ph]")).map((el) => ({
+    el,
+    enPh: el.getAttribute("placeholder") || "",
+    nePh: el.getAttribute("data-ne-ph") || ""
+  }));
+
+  function applyLang(lang) {
+    currentLang = lang === "ne" ? "ne" : "en";
+    document.documentElement.lang = currentLang === "ne" ? "ne" : "en";
+
+    for (let i = 0; i < textEls.length; i++) {
+      const item = textEls[i];
+      item.el.innerHTML = currentLang === "ne" ? item.neHtml : item.enHtml;
+    }
+
+    for (let i = 0; i < phEls.length; i++) {
+      const item = phEls[i];
+      item.el.setAttribute("placeholder", currentLang === "ne" ? item.nePh : item.enPh);
+    }
+
+    // Toggle button shows the target language you will switch TO
+    langToggle.textContent = currentLang === "ne" ? "EN" : "नेपाली";
+    try { localStorage.setItem(STORAGE_KEY, currentLang); } catch (_) {}
   }
+
+  langToggle.addEventListener("click", () => {
+    applyLang(currentLang === "en" ? "ne" : "en");
+  });
+
+  applyLang(currentLang);
 })();
