@@ -1,53 +1,36 @@
-/* ==========================================================================
-   Bilingual toggle (English <-> Nepali) with persistent choice
-   ========================================================================== */
-(function () {
-  const langToggle = document.getElementById("langToggle");
-  if (!langToggle) return;
-
-  const STORAGE_KEY = "site_lang";
-  let currentLang = "en";
-
+/* English / Nepali text switcher. Text is stored in data-en/data-ne attributes. */
+(() => {
+  "use strict";
+  const button = document.querySelector("#langToggle");
+  let language = "en";
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === "ne" || saved === "en") currentLang = saved;
+    const saved = localStorage.getItem("bd-language");
+    if (saved === "ne" || saved === "en") language = saved;
   } catch (_) {}
 
-  // Cache original English innerHTML & placeholders once
-  const textEls = Array.from(document.querySelectorAll("[data-ne]")).map((el) => ({
-    el,
-    enHtml: el.innerHTML,
-    neHtml: el.getAttribute("data-ne")
-  }));
-
-  const phEls = Array.from(document.querySelectorAll("[data-ne-ph]")).map((el) => ({
-    el,
-    enPh: el.getAttribute("placeholder") || "",
-    nePh: el.getAttribute("data-ne-ph") || ""
-  }));
-
-  function applyLang(lang) {
-    currentLang = lang === "ne" ? "ne" : "en";
-    document.documentElement.lang = currentLang === "ne" ? "ne" : "en";
-
-    for (let i = 0; i < textEls.length; i++) {
-      const item = textEls[i];
-      item.el.innerHTML = currentLang === "ne" ? item.neHtml : item.enHtml;
+  function setLanguage(next, save = true) {
+    language = next === "ne" ? "ne" : "en";
+    document.documentElement.lang = language;
+    document.querySelectorAll("[data-en], [data-ne]").forEach(element => {
+      const value = element.dataset[language];
+      if (value !== undefined) element.textContent = value;
+    });
+    document.querySelectorAll("[data-en-html], [data-ne-html]").forEach(element => {
+      const value = element.dataset[`${language}Html`];
+      if (value !== undefined) element.innerHTML = value;
+    });
+    document.querySelectorAll("[data-en-ph], [data-ne-ph]").forEach(element => {
+      const value = element.dataset[`${language}Ph`];
+      if (value !== undefined) element.placeholder = value;
+    });
+    if (button) {
+      button.textContent = language === "en" ? "नेपाली" : "English";
+      button.setAttribute("aria-label", language === "en" ? "Switch to Nepali" : "Switch to English");
     }
-
-    for (let i = 0; i < phEls.length; i++) {
-      const item = phEls[i];
-      item.el.setAttribute("placeholder", currentLang === "ne" ? item.nePh : item.enPh);
+    if (save) {
+      try { localStorage.setItem("bd-language", language); } catch (_) {}
     }
-
-    // Toggle button shows the target language you will switch TO
-    langToggle.textContent = currentLang === "ne" ? "EN" : "नेपाली";
-    try { localStorage.setItem(STORAGE_KEY, currentLang); } catch (_) {}
   }
-
-  langToggle.addEventListener("click", () => {
-    applyLang(currentLang === "en" ? "ne" : "en");
-  });
-
-  applyLang(currentLang);
+  setLanguage(language, false);
+  button?.addEventListener("click", () => setLanguage(language === "en" ? "ne" : "en"));
 })();
