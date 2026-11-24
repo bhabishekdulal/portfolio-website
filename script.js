@@ -18,8 +18,12 @@
 
   /* =========================================================
      LIVE WALLPAPER — drifting golden particles + topographic
-     waves + gentle mouse parallax. Pauses when tab is hidden
-     and automatically while the photo lightbox is open.
+     waves + gentle mouse parallax.
+     Performance rules:
+       • paused when the tab is hidden
+       • paused while the photo lightbox is open
+       • phones/tablets: lighter drawing, 30 fps, and the
+         animation is OFF by default (user can switch it on)
      ========================================================= */
   const canvas = $("#bg");
   const ctx = canvas.getContext("2d");
@@ -27,21 +31,39 @@
   const toggleLabel = $("#motionLabel");
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isMobile =
+    window.matchMedia("(max-width: 820px)").matches ||
+    window.matchMedia("(pointer: coarse)").matches;
+
   let savedPref = null;
   try { savedPref = localStorage.getItem("motion"); } catch (e) {}
-  let motionOn = savedPref ? savedPref === "on" : !prefersReduced;
+  // On mobile the animation starts OFF unless the visitor turned it on before.
+  let motionOn = savedPref ? savedPref === "on" : !prefersReduced && !isMobile;
 
-  let W = 0, H = 0, dpr = 1, t = 0, rafId = null;
+  const MAX_PARTICLES = isMobile ? 22 : 90;
+  const WAVE_LAYERS = isMobile ? 5 : 11;
+  const WAVE_STEP = isMobile ? 30 : 14;
+  const FRAME_MS = isMobile ? 33 : 0; // ~30 fps on mobile
+
+  let W = 0, H = 0, dpr = 1, t = 0, rafId = null, lastTs = 0;
   let lbOpen = false; // true while the lightbox is open (wallpaper paused)
   let mouseX = 0, mouseY = 0, px = 0, py = 0;
   let particles = [];
 
-  function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = window.innerWidth; H = window.innerHeight;
+  function resize(force) {
+    const nw = window.innerWidth, nh = window.innerHeight;
+    // Phones fire "resize" while scrolling (address bar hides/shows).
+    // Ignore small height-only changes so the canvas is not rebuilt constantly.
+    const sameSize = Math.abs(nw - W) < 1 && Math.abs(nh - H) < 150;
+    if (force !== true && sameSize && W) {
+      if (!rafId) draw(); // e.g. theme changed — just repaint one frame
+      return;
+    }
+    dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
+    W = nw; H = nh;
     canvas.width = W * dpr; canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const count = Math.round(Math.min(90, (W * H) / 16000));
+    const count = Math.round(Math.min(MAX_PARTICLES, (W * H) / 16000));
     particles = Array.from({ length: count }, makeParticle);
     draw(); // render a still frame even when paused
   }
@@ -67,7 +89,7 @@
 
   // Layered sine-wave "hills" that read like topographic contour lines
   function drawWaves() {
-    const layers = 11;
+    const layers = WAVE_LAYERS;
     for (let i = 0; i < layers; i++) {
       const k = i / layers;
       const baseY = H * (0.35 + k * 0.7) + py * (8 + i * 2);
@@ -75,7 +97,7 @@
       const freq = 0.0016 + k * 0.0009;
       const speed = t * (0.0005 + k * 0.0004);
       ctx.beginPath();
-      for (let x = -10; x <= W + 10; x += 14) {
+      for (let x = -10; x <= W + 10; x += WAVE_STEP) {
         const y = baseY
           + Math.sin(x * freq + speed + i) * amp
           + Math.sin(x * freq * 2.3 - speed * 1.4) * amp * 0.35;
@@ -118,12 +140,14 @@
     drawBase(); drawWaves(); drawParticles();
   }
 
-  function loop() {
+  function loop(ts) {
+    rafId = requestAnimationFrame(loop);
+    if (FRAME_MS && ts - lastTs < FRAME_MS) return; // frame cap on mobile
+    lastTs = ts;
     t += 16;
     px += (mouseX - px) * 0.04;
     py += (mouseY - py) * 0.04;
     step(); draw();
-    rafId = requestAnimationFrame(loop);
   }
 
   function stopLoop() {
@@ -131,7 +155,7 @@
   }
 
   function startLoopIfAllowed() {
-    if (motionOn && !document.hidden && !lbOpen && !rafId) loop();
+    if (motionOn && !document.hidden && !lbOpen && !rafId) rafId = requestAnimationFrame(loop);
   }
 
   function setMotion(on) {
@@ -140,19 +164,21 @@
     toggleLabel.textContent = on ? "Motion on" : "Motion off";
     try { localStorage.setItem("motion", on ? "on" : "off"); } catch (e) {}
     stopLoop();
-    if (on && !document.hidden && !lbOpen) loop(); else draw();
+    if (on && !document.hidden && !lbOpen) startLoopIfAllowed(); else draw();
   }
 
-  window.addEventListener("resize", resize);
-  window.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX / W - 0.5; mouseY = e.clientY / H - 0.5;
-  });
+  window.addEventListener("resize", () => resize());
+  if (!isMobile) {
+    window.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX / W - 0.5; mouseY = e.clientY / H - 0.5;
+    });
+  }
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) stopLoop();
     else startLoopIfAllowed();
   });
   toggle.addEventListener("click", () => setMotion(!motionOn));
-  resize();
+  resize(true);
   setMotion(motionOn);
 
   /* =========================================================
@@ -199,11 +225,8 @@
   }
 
   /* =========================================================
-     PHOTO FALLBACKS — if an image fails to load (e.g. Google
-     Photos page links or expired URLs), show a tidy initials
-     placeholder instead of a broken icon.
-     TIP: For best results, download each photo and point the
-     src to a local file such as images/profile.jpg.
+     PHOTO FALLBACKS — if an image fails to load, show a tidy
+     initials placeholder instead of a broken icon.
      ========================================================= */
   function initials(name) {
     return name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join("");
@@ -226,7 +249,10 @@
     img.addEventListener("error", swap);
     if (img.complete && img.naturalWidth === 0 && img.getAttribute("src")) swap();
   }
-  $$("img.photo").forEach(attachFallback);
+  $$("img.photo").forEach((img) => {
+    img.decoding = "async"; // decode photos off the main thread
+    attachFallback(img);
+  });
 
   /* =========================================================
      LIGHTBOX — gallery modal with keyboard + swipe support.
@@ -249,8 +275,8 @@
     if (el.tagName === "IMG") {
       node = document.createElement("img");
       node.id = "lbImg"; node.alt = el.alt; node.referrerPolicy = "no-referrer";
-      node.decoding = "async"; // decode the photo off the main thread
-      node.src = el.src;
+      node.decoding = "async";
+      node.src = el.currentSrc || el.src;
       node.addEventListener("error", () => {
         const ph = makePlaceholder(el); ph.id = "lbImg"; node.replaceWith(ph);
       });
@@ -263,12 +289,12 @@
     lastFocus = document.activeElement;
     lbOpen = true; stopLoop(); // pause the wallpaper
     lb.hidden = false; document.body.style.overflow = "hidden";
-    show(i); $("#lbClose").focus();
+    show(i); $("#lbClose").focus({ preventScroll: true });
   }
   function close() {
     lb.hidden = true; document.body.style.overflow = "";
     lbOpen = false; startLoopIfAllowed(); // resume the wallpaper
-    if (lastFocus) lastFocus.focus();
+    if (lastFocus) lastFocus.focus({ preventScroll: true });
   }
   items.forEach((btn, i) => btn.addEventListener("click", () => open(i)));
   $("#lbClose").addEventListener("click", close);
@@ -288,9 +314,12 @@
     if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
   });
 
-  // He
-
-
+  /* =========================================================
+     FEEDBACK FORM — opens the visitor's email app with a
+     pre-filled message (mailto). To use a real form backend
+     instead (Formspree, Web3Forms, etc.), replace the submit
+     handler with a fetch() POST to your endpoint.
+     ========================================================= */
   const form = $("#feedbackForm"), statusEl = $("#formStatus");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
