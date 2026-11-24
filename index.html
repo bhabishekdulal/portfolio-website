@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bhabishek Dulal | भविष्येक दुलाल — Portfolio</title>
+  <meta name="description" content="Personal portfolio of Bhabishek Dulal (भविशेक दुलाल) — Student, Educational Creator / YouTuber, aspiring public servant, and learner of Lok Sewa and NEPSE from Dolakha, Nepal." />
+
+  <!-- Open Graph / Social Meta -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Bhabishek Dulal | भविष्येक दुलाल — Portfolio" />
+  <meta property="og:description" content="Student, Educational Creator / YouTuber, aspiring public servant, and learner of Lok Sewa & NEPSE. धेरै छ गर्न स्वदेशको सेवा नेपाली भन्न लाई" />
+  <meta property="og:image" content="https://bhabishekdulal.com.np/photos/1787139701925.png" />
+
+  <!-- Google Fonts: Plus Jakarta Sans, Inter & Noto Sans Devanagari for crisp Nepali typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans Devanagari', 'system-ui', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Noto Sans Devanagari', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            espresso: {
+              950: '#140c0a',
+              900: '#1d120f',
+              850: '#261713',
+              800: '#311e18',
+              700: '#462b22',
+              600: '#633e32',
+            },
+            cream: {
+              50: '#fdf9f7',
+              100: '#f9f0ec',
+              200: '#f2e1d9',
+              300: '#e5cabd',
+            },
+            roseblush: {
+              200: '#fecdd3',
+              300: '#fda4af',
+              400: '#fb7185',
+              500: '#f43f5e',
+              600: '#e11d48',
+              dusty: '#c96b82',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* ==========================================================================
+       CUSTOM THEME VARIABLES & HARDWARE-ACCELERATED SMOOTH MOTION
+       ========================================================================== */
+    :root {
+      --bg-base: #fdf9f7;
+      --bg-card: rgba(255, 250, 248, 0.78);
+      --bg-card-solid: #fffaf8;
+      --border-subtle: rgba(138, 86, 72, 0.18);
+      --text-primary: #2c1914;
+      --text-secondary: #68463c;
+      --accent-pink: #d95d79;
+      --accent-pink-soft: rgba(217, 93, 121, 0.14);
+      --accent-brown: #7a493a;
+      --shadow-card: 0 12px 32px -8px rgba(66, 35, 26, 0.10);
+    }
+
+    html.dark {
+      --bg-base: #150d0b;
+      --bg-card: rgba(36, 22, 18, 0.72);
+      --bg-card-solid: #241612;
+      --border-subtle: rgba(244, 143, 166, 0.16);
+      --text-primary: #f9ece8;
+      --text-secondary: #cbb0a8;
+      --accent-pink: #f48fa6;
+      --accent-pink-soft: rgba(244, 143, 166, 0.14);
+      --accent-brown: #b98370;
+      --shadow-card: 0 16px 40px -10px rgba(0, 0, 0, 0.55);
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      transition: background-color 0.35s ease, color 0.35s ease;
+      overflow-x: hidden;
+    }
+
+    /* Glassmorphic Pink & Brown Cards */
+    .pb-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                  border-color 0.3s ease,
+                  background-color 0.35s ease,
+                  box-shadow 0.3s ease;
+    }
+
+    .pb-card:hover {
+      border-color: rgba(244, 143, 166, 0.42);
+    }
+
+    /* Motion-aware hover elevation */
+    html:not(.reduce-motion) .pb-card-hover:hover {
+      transform: translateY(-4px);
+    }
+
+    /* Gentle floating hero frame animation */
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    html:not(.reduce-motion) .animate-float {
+      animation: gentleFloat 6s ease-in-out infinite;
+    }
+
+    /* Scroll reveal classes */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal-item.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Instant static mode when Motion is OFF */
+    html.reduce-motion .reveal-item {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    html.reduce-motion * {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
+
+    /* Custom Scrollbar in Pink & Cocoa */
+    ::-webkit-scrollbar {
+      width: 9px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-base);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #e07a94, #6e4134);
+      border-radius: 9999px;
+    }
+
+    /* Pink-to-Brown Gradient Text */
+    .text-gradient-pb {
+      background: linear-gradient(135deg, #f48fa6 0%, #e46b88 48%, #b3745e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    html:not(.dark) .text-gradient-pb {
+      background: linear-gradient(135deg, #c94a6a 0%, #9b485b 52%, #6b3b2c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-rose-400/30 selection:text-rose-200">
+
+  <!-- ========================================================================
+       LIVE AMBIENT WALLPAPER CANVAS (60FPS HARDWARE-ACCELERATED)
+       ======================================================================== -->
+  <canvas id="live-wallpaper" class="fixed inset-0 w-full h-full pointer-events-none z-0" aria-hidden="true"></canvas>
+
+  <!-- Subtle Radial Vignette Overlay for Contrast -->
+  <div class="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_top_right,rgba(244,143,166,0.09),transparent_48%),radial-gradient(circle_at_bottom_left,rgba(122,73,58,0.14),transparent_52%)]" aria-hidden="true"></div>
+
+  <!-- ========================================================================
+       TOP SCROLL PROGRESS BAR
+       ======================================================================== -->
+  <div class="fixed top-0 left-0 right-0 h-1 z-50 bg-transparent pointer-events-none">
+    <div id="scroll-progress" class="h-full w-0 bg-gradient-to-r from-rose-400 via-pink-500 to-amber-800 transition-[width] duration-75 ease-out rounded-r-full"></div>
+  </div>
+
+  <!-- ========================================================================
+       STICKY NAVIGATION BAR WITH CONTROLS (THEME, MOTION, LANGUAGE, NEPAL CLOCK)
+       ======================================================================== -->
+  <header class="sticky top-0 z-40 border-b border-rose-300/15 dark:border-rose-300/10 bg-[#fdf9f7]/85 dark:bg-[#150d0b]/85 backdrop-blur-xl transition-colors duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
+
+      <!-- Brand Identity -->
+      <a href="#top" class="flex items-center gap-2.5 group shrink-0">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-rose-400 to-espresso-700 flex items-center justify-center text-white font-display font-bold text-sm shadow-md shadow-rose-500/20">
+          BD
+        </div>
+        <div class="leading-tight">
+          <span class="font-display font-bold text-sm sm:text-base tracking-tight block" data-en="Bhabishek Dulal" data-ne="भविशेक दुलाल">Bhabishek Dulal</span>
+          <span class="text-[11px] text-[#7a493a] dark:text-rose-300/80 hidden sm:block" data-en="Dolakha, Nepal" data-ne="दोलखा, नेपाल">Dolakha, Nepal</span>
+        </div>
+      </a>
+
+      <!-- Desktop Section Links -->
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-[#5c3a30] dark:text-[#d8beb6]">
+        <a href="#academics" class="hover:text-rose-600 dark:hover:text-rose-300 transition-colors" data-en="Academics" data-ne="शैक्षिक विवरण">Academics</a>
+        <a href="#goals" class="hover:text-rose-600 dark:hover:text-rose-300 transition-colors" data-en="Lok Sewa & NEPSE" data-ne="लोक सेवा र नेप्से">Lok Sewa & NEPSE</a>
+        <a href="#youtube" class="hover:text-rose-600 dark:hover:text-rose-300 transition-colors" data-en="YouTube" data-ne="युट्युब">YouTube</a>
+        <a href="#family" class="hover:text-rose-600 dark:hover:text-rose-300 transition-colors" data-en="Family" data-ne="परिवार">Family</a>
+        <a href="#gallery" class="hover:text-rose-600 dark:hover:text-rose-300 transition-colors" data-en="Moments" data-ne="तस्बिरहरू">Moments</a>
+        <a href="#contact" class="hover:text-rose-600 dark:hover:text-rose-300 transition-colors" data-en="Contact" data-ne="सम्पर्क">Contact</a>
+      </nav>
+
+      <!-- Interactive Control Pill Cluster -->
+      <div class="flex items-center gap-1.5 sm:gap-2">
+
+        <!-- Live Nepal Time Clock -->
+        <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-medium bg-rose-500/10 dark:bg-rose-400/10 border border-rose-400/20 text-[#6e3f32] dark:text-rose-200" title="Nepal Standard Time (UTC+5:45)">
+          <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+          <span id="nepal-clock" class="tabular-nums font-semibold">--:--:--</span>
+          <span class="text-[10px] opacity-75">NPT</span>
+        </div>
+
+        <!-- Language Switcher (EN / नेपा) -->
+        <button id="lang-toggle" type="button" aria-label="Switch Language"
+          class="px-2.5 py-1.5 rounded-xl text-xs font-semibold border border-[#7a493a]/25 dark:border-rose-300/20 bg-white/70 dark:bg-espresso-800/80 hover:border-rose-400 text-[#4a2b22] dark:text-rose-100 transition-all cursor-pointer">
+          <span id="lang-label">EN | नेपा</span>
+        </button>
+
+        <!-- Motion On/Off Switcher -->
+        <button id="motion-toggle" type="button" aria-label="Toggle Background & UI Motion" title="Toggle Live Wallpaper & Animations"
+          class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold border border-[#7a493a]/25 dark:border-rose-300/20 bg-white/70 dark:bg-espresso-800/80 hover:border-rose-400 text-[#4a2b22] dark:text-rose-100 transition-all cursor-pointer">
+          <svg id="motion-icon" class="w-3.5 h-3.5 text-rose-500 dark:text-rose-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          <span id="motion-status" class="hidden md:inline" data-en="Motion: On" data-ne="गति: चालु">Motion: On</span>
+        </button>
+
+        <!-- Dark / Light Mode Switcher -->
+        <button id="theme-toggle" type="button" aria-label="Toggle Dark or Light Mode" title="Switch Theme"
+          class="p-2 rounded-xl border border-[#7a493a]/25 dark:border-rose-300/20 bg-white/70 dark:bg-espresso-800/80 hover:border-rose-400 text-[#4a2b22] dark:text-rose-200 transition-all cursor-pointer">
+          <!-- Sun Icon (shown in Dark Mode) -->
+          <svg id="icon-sun" class="w-4 h-4 hidden dark:block text-rose-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <!-- Moon Icon (shown in Light Mode) -->
+          <svg id="icon-moon" class="w-4 h-4 block dark:hidden text-[#6e3f32]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MAIN CONTENT CONTAINER
+       ======================================================================== -->
+  <main id="top" class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-20 space-y-20 sm:space-y-28">
+
+    <!-- ======================================================================
+         1. HERO SECTION (PORTRAIT AT BEGINNING OF PAGE + IDENTITY + MOTTO)
+         ====================================================================== -->
+    <section class="pt-2 sm:pt-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+        <!-- Hero Portrait Card (Placed prominently right at the beginning) -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative w-full max-w-[340px] sm:max-w-[370px] animate-float">
+            <!-- Decorative Pink & Warm Cocoa Aura -->
+            <div class="absolute -inset-2.5 rounded-[2rem] bg-gradient-to-tr from-rose-400/45 via-pink-300/25 to-amber-900/45 blur-xl opacity-80"></div>
+
+            <div class="relative pb-card rounded-[1.85rem] p-3.5 overflow-hidden">
+              <div class="relative aspect-[4/5] w-full rounded-[1.4rem] overflow-hidden bg-gradient-to-br from-espresso-800 via-espresso-700 to-rose-900/60">
+                <img
+                  src="photos/1787139701925.png"
+                  alt="Bhabishek Dulal — भविष्येक दुलाल"
+                  class="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
+                  onerror="handleImgFallback(this, 'Bhabishek Dulal', 'BD')"
+                />
+
+                <!-- Subtle Bottom Gradient Caption Badge -->
+                <div class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-espresso-950/90 via-espresso-950/50 to-transparent text-white">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <p class="text-xs uppercase tracking-widest text-rose-300 font-semibold" data-en="Namaste · नमस्ते" data-ne="नमस्ते · स्वागत छ">Namaste · नमस्ते</p>
+                      <p class="font-display font-bold text-base">भविशेक दुलाल</p>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-full text-[11px] font-medium bg-rose-500/25 border border-rose-300/30 text-rose-100 backdrop-blur-md">
+                      🇳🇵 Dolakha
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Bio, Locations, Motto & CTAs -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-rose-500/12 dark:bg-rose-400/12 border border-rose-400/30 text-[#9c3d55] dark:text-rose-200">
+            <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+            <span data-en="Student · Educational Creator · Lok Sewa & NEPSE Learner" data-ne="विद्यार्थी · शैक्षिक युट्युबर · लोक सेवा र नेप्से अध्येता">Student · Educational Creator · Lok Sewa & NEPSE Learner</span>
+          </div>
+
+          <div class="space-y-2">
+            <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.12]">
+              <span data-en="Bhabishek Dulal" data-ne="भविशेक दुलाल">Bhabishek Dulal</span>
+              <span class="block text-2xl sm:text-3xl font-bold mt-1.5 text-gradient-pb" data-en="भविशेक दुलाल" data-ne="Bhabishek Dulal">भविशेक दुलाल</span>
+            </h1>
+            <p class="text-base sm:text-lg text-[#5e3c32] dark:text-[#d5bbb3] max-w-2xl mx-auto lg:mx-0 leading-relaxed pt-2"
+               data-en="A dedicated Science graduate, educational YouTuber (@bhabishek.withyou), aspiring public servant preparing for Lok Sewa Aayog, and disciplined fundamental investor in the Nepal Stock Exchange (NEPSE)."
+               data-ne="विज्ञान संकायका विद्यार्थी, शैक्षिक युट्युबर (@bhabishek.withyou), इमानदार राष्ट्रसेवाको लक्ष्यसहित लोक सेवा आयोगको तयारी गरिरहेका युवा तथा नेपाल स्टक एक्सचेन्ज (नेप्से) का आधारभूत लगानीकर्ता।">
+              A dedicated Science graduate, educational YouTuber (<span class="font-semibold text-rose-600 dark:text-rose-300">@bhabishek.withyou</span>), aspiring public servant preparing for Lok Sewa Aayog, and disciplined fundamental investor in the Nepal Stock Exchange (NEPSE).
+            </p>
+          </div>
+
+          <!-- Location Cards (Permanent & Grew Up In) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 max-w-2xl mx-auto lg:mx-0">
+            <div class="pb-card rounded-2xl p-3.5 flex items-center gap-3 text-left">
+              <div class="w-10 h-10 rounded-xl bg-rose-500/15 dark:bg-rose-400/15 flex items-center justify-center text-rose-600 dark:text-rose-300 shrink-0">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-[11px] uppercase tracking-wider font-semibold text-[#855446] dark:text-rose-300/75" data-en="Permanent Address" data-ne="स्थायी ठेगाना">Permanent Address</p>
+                <p class="font-semibold text-sm sm:text-base" data-en="Shailung-05, Dolakha, Nepal" data-ne="शैलुङ-०५, दोलखा, नेपाल">Shailung-05, Dolakha, Nepal</p>
+              </div>
+            </div>
+
+            <div class="pb-card rounded-2xl p-3.5 flex items-center gap-3 text-left">
+              <div class="w-10 h-10 rounded-xl bg-[#7a493a]/15 dark:bg-amber-700/20 flex items-center justify-center text-[#7a493a] dark:text-amber-300 shrink-0">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-[11px] uppercase tracking-wider font-semibold text-[#855446] dark:text-rose-300/75" data-en="Grew Up In" data-ne="हुर्केको स्थान">Grew Up In</p>
+                <p class="font-semibold text-sm sm:text-base" data-en="Charikot, Dolakha, Nepal" data-ne="चरिकोट, दोलखा, नेपाल">Charikot, Dolakha, Nepal</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Guiding Motto Banner -->
+          <div class="pb-card rounded-2xl p-4 sm:p-5 border-l-4 border-l-rose-500 max-w-2xl mx-auto lg:mx-0 text-left bg-gradient-to-r from-rose-500/10 via-transparent to-[#7a493a]/10">
+            <p class="text-[11px] uppercase tracking-widest font-bold text-rose-600 dark:text-rose-300 mb-1" data-en="Guiding Motto · आदर्श वाक्य" data-ne="आदर्श वाक्य · Guiding Motto">Guiding Motto · आदर्श वाक्य</p>
+            <blockquote class="font-display font-bold text-lg sm:text-xl text-[#3b1f18] dark:text-rose-100">
+              “धेरै छ गर्न स्वदेशको सेवा नेपाली भन्न लाई”
+            </blockquote>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1">
+            <a href="#academics" class="px-5 py-3 rounded-2xl font-semibold text-sm text-white bg-gradient-to-r from-rose-500 to-[#6e3d30] hover:from-rose-600 hover:to-[#583025] shadow-lg shadow-rose-500/25 transition-all" data-en="Explore Journey" data-ne="यात्रा हेर्नुहोस्">
+              Explore Journey
+            </a>
+            <a href="https://youtube.com/@bhabishek.withyou?si=JcuUwDNBdnpRdybT" target="_blank" rel="noopener noreferrer"
+               class="px-5 py-3 rounded-2xl font-semibold text-sm pb-card hover:border-rose-400 flex items-center gap-2">
+              <svg class="w-4 h-4 text-rose-500" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              <span data-en="YouTube Channel" data-ne="युट्युब च्यानल">YouTube Channel</span>
+            </a>
+            <a href="#contact" class="px-5 py-3 rounded-2xl font-semibold text-sm pb-card hover:border-rose-400" data-en="Get in Touch" data-ne="सम्पर्क गर्नुहोस्">
+              Get in Touch
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         2. ACADEMIC BACKGROUND & FOUNDATIONAL TECHNICAL SKILLS
+         ====================================================================== -->
+    <section id="academics" class="reveal-item space-y-8 scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-rose-600 dark:text-rose-300" data-en="Education & Foundations" data-ne="शिक्षा र आधारभूत सीप">Education & Foundations</span>
+          <h2 class="font-display font-bold text-2xl sm:text-3xl mt-1" data-en="Academic Background" data-ne="शैक्षिक पृष्ठभूमि">Academic Background</h2>
+        </div>
+        <p class="text-sm text-[#68463c] dark:text-[#cbb0a8]" data-en="Consistent academic excellence from Dolakha to Kathmandu" data-ne="दोलखादेखि काठमाडौँसम्मको निरन्तर शैक्षिक उत्कृष्टता">Consistent academic excellence from Dolakha to Kathmandu</p>
+      </div>
+
+      <!-- Two Academic Milestone Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Class 12 — SLC (Science) -->
+        <article class="pb-card pb-card-hover rounded-3xl p-6 sm:p-7 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-rose-400/10 rounded-bl-full pointer-events-none"></div>
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-rose-500/15 text-rose-700 dark:text-rose-200 border border-rose-400/25">
+                2083 BS · 2026 AD
+              </span>
+              <h3 class="font-display font-bold text-xl sm:text-2xl mt-3" data-en="Class 12 — SLC (Science)" data-ne="कक्षा १२ — एस.एल.सी. (विज्ञान संकाय)">Class 12 — SLC (Science)</h3>
+              <p class="text-sm sm:text-base font-medium text-[#68463c] dark:text-[#d6bcb4] mt-1" data-en="St. Lawrence Secondary School, Chabahil, Kathmandu" data-ne="सेन्ट लरेन्स माध्यमिक विद्यालय, चाबहिल, काठमाडौँ">
+                St. Lawrence Secondary School, Chabahil, Kathmandu
+              </p>
+            </div>
+            <div class="text-right shrink-0 bg-gradient-to-br from-rose-500/15 to-[#7a493a]/20 border border-rose-400/30 rounded-2xl px-4 py-2.5">
+              <span class="block text-[10px] uppercase tracking-wider font-bold text-rose-600 dark:text-rose-300" data-en="Result" data-ne="नतिजा">Result</span>
+              <span class="font-display font-extrabold text-xl sm:text-2xl text-gradient-pb">3.90 GPA</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Class 10 — SEE -->
+        <article class="pb-card pb-card-hover rounded-3xl p-6 sm:p-7 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-[#7a493a]/15 rounded-bl-full pointer-events-none"></div>
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#7a493a]/15 dark:bg-amber-700/20 text-[#683b2e] dark:text-amber-200 border border-[#7a493a]/25">
+                2080 BS
+              </span>
+              <h3 class="font-display font-bold text-xl sm:text-2xl mt-3" data-en="Class 10 — SEE" data-ne="कक्षा १० — एस.ई.ई. (SEE)">Class 10 — SEE</h3>
+              <p class="text-sm sm:text-base font-medium text-[#68463c] dark:text-[#d6bcb4] mt-1" data-en="The Rising Star School, Charikot, Dolakha" data-ne="द राइजिङ स्टार स्कुल, चरिकोट, दोलखा">
+                The Rising Star School, Charikot, Dolakha
+              </p>
+            </div>
+            <div class="text-right shrink-0 bg-gradient-to-br from-[#7a493a]/20 to-rose-500/15 border border-rose-400/25 rounded-2xl px-4 py-2.5">
+              <span class="block text-[10px] uppercase tracking-wider font-bold text-[#7a493a] dark:text-rose-300" data-en="Result" data-ne="नतिजा">Result</span>
+              <span class="font-display font-extrabold text-xl sm:text-2xl text-gradient-pb">3.59 GPA</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Foundational Technical Skills Bar -->
+      <div class="pb-card rounded-3xl p-6 sm:p-7">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-5">
+          <div>
+            <h3 class="font-display font-bold text-lg sm:text-xl" data-en="Foundational Technical Skills" data-ne="आधारभूत प्राविधिक सीपहरू">Foundational Technical Skills</h3>
+            <p class="text-xs sm:text-sm text-[#68463c] dark:text-[#cbb0a8] mt-0.5" data-en="Core programming, web development & database fundamentals" data-ne="प्रोग्रामिङ, वेब विकास र डाटाबेसका आधारभूत ज्ञान">Core programming, web development & database fundamentals</p>
+          </div>
+          <div class="flex flex-wrap gap-2.5">
+            <span class="px-4 py-2 rounded-xl text-sm font-semibold bg-rose-500/12 dark:bg-rose-400/12 border border-rose-400/30 text-[#7d3246] dark:text-rose-200">C Programming</span>
+            <span class="px-4 py-2 rounded-xl text-sm font-semibold bg-[#7a493a]/12 dark:bg-amber-800/20 border border-[#7a493a]/30 text-[#5c3529] dark:text-amber-200">HTML5</span>
+            <span class="px-4 py-2 rounded-xl text-sm font-semibold bg-rose-500/12 dark:bg-rose-400/12 border border-rose-400/30 text-[#7d3246] dark:text-rose-200">CSS3</span>
+            <span class="px-4 py-2 rounded-xl text-sm font-semibold bg-[#7a493a]/12 dark:bg-amber-800/20 border border-[#7a493a]/30 text-[#5c3529] dark:text-amber-200">JavaScript</span>
+            <span class="px-4 py-2 rounded-xl text-sm font-semibold bg-rose-500/12 dark:bg-rose-400/12 border border-rose-400/30 text-[#7d3246] dark:text-rose-200">PHP</span>
+            <span class="px-4 py-2 rounded-xl text-sm font-semibold bg-[#7a493a]/12 dark:bg-amber-800/20 border border-[#7a493a]/30 text-[#5c3529] dark:text-amber-200">SQL / MySQL</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         3. INTERESTS, GOALS & YOUTUBE EXPERIENCE
+         ====================================================================== -->
+    <section id="goals" class="reveal-item space-y-8 scroll-mt-24">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-rose-600 dark:text-rose-300" data-en="Purpose & Vision" data-ne="उद्देश्य र दृष्टिकोण">Purpose & Vision</span>
+        <h2 class="font-display font-bold text-2xl sm:text-3xl mt-1" data-en="Interests, Goals & Creator Journey" data-ne="रुचि, लक्ष्य र युट्युब यात्रा">Interests, Goals & Creator Journey</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Lok Sewa Aayog -->
+        <article class="pb-card pb-card-hover rounded-3xl p-6 sm:p-7 flex flex-col justify-between space-y-5">
+          <div class="space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-500/20 to-[#7a493a]/20 border border-rose-400/30 flex items-center justify-center text-rose-600 dark:text-rose-300">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+              </svg>
+            </div>
+            <h3 class="font-display font-bold text-xl" data-en="Lok Sewa Aayog" data-ne="लोक सेवा आयोग (Lok Sewa)">Lok Sewa Aayog</h3>
+            <p class="text-xs font-semibold uppercase tracking-wider text-rose-600 dark:text-rose-300" data-en="Nepal Public Service Commission" data-ne="नेपाल सरकारको सार्वजनिक सेवा">Nepal Public Service Commission</p>
+            <p class="text-sm text-[#5e3c32] dark:text-[#d5bbb3] leading-relaxed"
+               data-en="Dedicated to preparing for Lok Sewa examinations with the aspiration to serve the Government of Nepal and its citizens with integrity, honesty, and diligence."
+               data-ne="इमानदारी, निष्ठा र लगनशीलताका साथ नेपाल सरकार र नेपाली नागरिकको सेवा गर्ने दृढ लक्ष्यसहित लोक सेवा आयोगका परीक्षाहरूको तयारीमा समर्पित।">
+              Dedicated to preparing for Lok Sewa examinations with the aspiration to serve the Government of Nepal and its citizens with integrity, honesty, and diligence.
+            </p>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-400/20 text-xs font-semibold text-[#5a2a36] dark:text-rose-200">
+            “धेरै छ गर्न स्वदेशको सेवा नेपाली भन्न लाई”
+          </div>
+        </article>
+
+        <!-- NEPSE & Investing -->
+        <article class="pb-card pb-card-hover rounded-3xl p-6 sm:p-7 flex flex-col justify-between space-y-5">
+          <div class="space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#7a493a]/25 to-rose-500/15 border border-[#7a493a]/30 flex items-center justify-center text-[#7a493a] dark:text-amber-300">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+            </div>
+            <h3 class="font-display font-bold text-xl" data-en="NEPSE & Investing" data-ne="नेप्से (NEPSE) र लगानी">NEPSE & Investing</h3>
+            <p class="text-xs font-semibold uppercase tracking-wider text-[#7a493a] dark:text-amber-300" data-en="Fundamental & Long-Term Equity Analysis" data-ne="आधारभूत विश्लेषण र दीर्घकालीन लगानी">Fundamental & Long-Term Equity Analysis</p>
+            <p class="text-sm text-[#5e3c32] dark:text-[#d5bbb3] leading-relaxed"
+               data-en="Focused on fundamental analysis and long-term equity investing in the Nepal Stock Exchange (NEPSE)—aiming to deeply understand underlying businesses and value creation rather than chasing short-term stock prices."
+               data-ne="नेपाल स्टक एक्सचेन्ज (नेप्से) मा अल्पकालीन मूल्य उतारचढावको पछि लाग्नुभन्दा व्यवसायको वास्तविक अवस्था र दीर्घकालीन मूल्य बुझेर आधारभूत लगानी गर्ने दृष्टिकोण।">
+              Focused on fundamental analysis and long-term equity investing in the Nepal Stock Exchange (NEPSE)—aiming to deeply understand underlying businesses and value creation rather than chasing short-term stock prices.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-semibold text-[#6e3f32] dark:text-rose-200/80">
+            <span class="px-2.5 py-1 rounded-lg bg-[#7a493a]/15">Fundamental Analysis</span>
+            <span class="px-2.5 py-1 rounded-lg bg-rose-500/15">Long-Term Value</span>
+          </div>
+        </article>
+
+        <!-- YouTube Experience -->
+        <article id="youtube" class="pb-card pb-card-hover rounded-3xl p-6 sm:p-7 flex flex-col justify-between space-y-5 scroll-mt-24">
+          <div class="space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-rose-500/15 border border-rose-400/30 flex items-center justify-center text-rose-600 dark:text-rose-300">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </div>
+            <h3 class="font-display font-bold text-xl" data-en="YouTube Experience" data-ne="युट्युब अनुभव">YouTube Experience</h3>
+            <p class="text-xs font-semibold text-rose-600 dark:text-rose-300">Bhabishek Dulal (@bhabishek.withyou)</p>
+            <p class="text-sm text-[#5e3c32] dark:text-[#d5bbb3] leading-relaxed"
+               data-en="Started early on with gaming videos before transitioning into educational content. Teaching what he learns reinforces his own academic foundation while sharing practical, accessible study material with viewers."
+               data-ne="सुरुवाती दिनमा गेमिङ भिडियोहरूबाट यात्रा सुरु गरी पछि शैक्षिक सामग्रीतर्फ केन्द्रित। आफूले सिकेका कुरा अरूलाई सिकाउँदा आफ्नो शैक्षिक आधार अझ बलियो हुनुका साथै दर्शकहरूलाई उपयोगी अध्ययन सामग्री प्रदान गर्न मद्दत पुगेको छ।">
+              Started early on with gaming videos before transitioning into educational content. Teaching what he learns reinforces his own academic foundation while sharing practical, accessible study material with viewers.
+            </p>
+          </div>
+          <a href="https://youtube.com/@bhabishek.withyou?si=JcuUwDNBdnpRdybT" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-rose-500 to-[#6e3d30] hover:opacity-95 transition-opacity">
+            <span data-en="Visit @bhabishek.withyou" data-ne="@bhabishek.withyou हेर्नुहोस्">Visit @bhabishek.withyou</span>
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         4. FAMILY PILLARS (MOTHER & FATHER)
+         ====================================================================== -->
+    <section id="family" class="reveal-item space-y-8 scroll-mt-24">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-rose-600 dark:text-rose-300" data-en="Roots & Inspiration" data-ne="प्रेरणाका स्रोत">Roots & Inspiration</span>
+        <h2 class="font-display font-bold text-2xl sm:text-3xl mt-1" data-en="Family Pillars" data-ne="परिवारका आधारस्तम्भ">Family Pillars</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+        <!-- Mother — Bhagawati Neupane -->
+        <article class="pb-card pb-card-hover rounded-3xl p-6 sm:p-7 flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+          <div class="w-32 h-36 sm:w-36 sm:h-44 rounded-2xl overflow-hidden shrink-0 border-2 border-rose-400/35 shadow-md bg-espresso-800">
+            <img
+              src="photos/IMG-20260910-WA0000.jpg"
+              alt="Bhagawati Neupane — Mother"
+              class="w-full h-full object-cover object-top"
+              onerror="handleImgFallback(this, 'Bhagawati Neupane', 'BN')"
+            />
+          </div>
+          <div class="space-y-2.5 text-center sm:text-left">
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-rose-500/15 text-rose-700 dark:text-rose-200" data-en="Mother · आमा" data-ne="आमा · Mother">Mother · आमा</span>
+            <h3 class="font-display font-bold text-xl sm:text-2xl" data-en="Bhagawati Neupane" data-ne="भगवती न्यौपाने">Bhagawati Neupane</h3>
+            <p class="text-xs font-semibold text-[#7a493a] dark:text-rose-300/90" data-en="Registered Nurse · ~20 Years of Healthcare Service (Since ~2006 AD / 2063 BS)" data-ne="रजिस्टर्ड नर्स · करिब २० वर्षको स्वास्थ्य सेवा अनुभव (सन् २००६ / वि.सं. २०६३ देखि)">
+              Registered Nurse · ~20 Years of Healthcare Service (Since ~2006 AD / 2063 BS)
+            </p>
+            <p class="text-sm text-[#5e3c32] dark:text-[#d5bbb3] leading-relaxed"
+               data-en="Currently serving at Dhulikhel Hospital (Dolakha Outreach). Previously contributed at Kathmandu Model Hospital (Dolakha Outreach) and government health institutions early in her career. Completed her academic journey in Jiri, Dolakha."
+               data-ne="हाल धुलिखेल अस्पताल (दोलखा आउटरिच) मा कार्यरत। यसअघि काठमाडौँ मोडेल अस्पताल (दोलखा आउटरिच) तथा करियरको सुरुवाती चरणमा सरकारी स्वास्थ्य संस्थाहरूमा सेवा पुर्‍याउनुभएको। उहाँले जिरी, दोलखाबाट आफ्नो शैक्षिक यात्रा पूरा गर्नुभएको हो।">
+              Currently serving at Dhulikhel Hospital (Dolakha Outreach). Previously contributed at Kathmandu Model Hospital (Dolakha Outreach) and government health institutions early in her career. Completed her academic journey in Jiri, Dolakha.
+            </p>
+          </div>
+        </article>
+
+        <!-- Father — Bidur Prasad Dulal -->
+        <article class="pb-card pb-card-hover rounded-3xl p-6 sm:p-7 flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+          <div class="w-32 h-36 sm:w-36 sm:h-44 rounded-2xl overflow-hidden shrink-0 border-2 border-[#9e6351]/45 shadow-md bg-espresso-800">
+            <img
+              src="photos/FB_IMG_1795240550767.jpg"
+              alt="Bidur Prasad Dulal — Father"
+              class="w-full h-full object-cover object-top"
+              onerror="handleImgFallback(this, 'Bidur Prasad Dulal', 'BPD')"
+            />
+          </div>
+          <div class="space-y-2.5 text-center sm:text-left">
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#7a493a]/15 dark:bg-amber-700/25 text-[#66392c] dark:text-amber-200" data-en="Father · बुबा" data-ne="बुबा · Father">Father · बुबा</span>
+            <h3 class="font-display font-bold text-xl sm:text-2xl" data-en="Bidur Prasad Dulal" data-ne="विदुर प्रसाद दुलाल">Bidur Prasad Dulal</h3>
+            <p class="text-xs font-semibold text-[#7a493a] dark:text-rose-300/90" data-en="Dedicated Educator · 20+ Years of Teaching Excellence" data-ne="समर्पित शिक्षक · २० वर्षभन्दा बढीको शिक्षण अनुभव">
+              Dedicated Educator · 20+ Years of Teaching Excellence
+            </p>
+            <p class="text-sm text-[#5e3c32] dark:text-[#d5bbb3] leading-relaxed"
+               data-en="Began his career in private schools and educational institutions before dedicating two decades to teaching in government schools across rural and district communities in Nepal, including Ramechhap and Dolakha. Recipient of multiple awards for teaching excellence and continues teaching today."
+               data-ne="निजी विद्यालय तथा शैक्षिक संस्थाहरूबाट शिक्षण यात्रा सुरु गरी रामेछाप र दोलखा लगायत नेपालका ग्रामीण तथा जिल्लास्तरीय सामुदायिक विद्यालयहरूमा दुई दशकभन्दा लामो समयदेखि अध्यापनरत। शिक्षण उत्कृष्टताका लागि विभिन्न पुरस्कारबाट सम्मानित तथा हाल पनि शिक्षण सेवामा निरन्तर सक्रिय।">
+              Began his career in private schools and educational institutions before dedicating two decades to teaching in government schools across rural and district communities in Nepal, including Ramechhap and Dolakha. Recipient of multiple awards for teaching excellence and continues teaching today.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         5. CURATED PHOTO GALLERY (8 MOMENTS + FULL-SCREEN LIGHTBOX VIEWER)
+         ====================================================================== -->
+    <section id="gallery" class="reveal-item space-y-8 scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-rose-600 dark:text-rose-300" data-en="Visual Archive" data-ne="तस्बिर सङ्ग्रह">Visual Archive</span>
+          <h2 class="font-display font-bold text-2xl sm:text-3xl mt-1" data-en="Curated Moments (08)" data-ne="विशेष क्षणहरू (०८)">Curated Moments (08)</h2>
+        </div>
+        <p class="text-sm text-[#68463c] dark:text-[#cbb0a8]" data-en="Click any photograph to open full-screen lightbox view" data-ne="पूर्ण स्क्रिनमा हेर्न कुनै पनि तस्बिरमा क्लिक गर्नुहोस्">Click any photograph to open full-screen lightbox view</p>
+      </div>
+
+      <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
+        <!-- Moment 01 -->
+        <button type="button" onclick="openLightbox(0)" class="group pb-card rounded-2xl p-2 text-left overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-rose-400">
+          <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-espresso-800">
+            <img src="photos/IMG_20260707_141635521.jpg" alt="Moment 01" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="handleImgFallback(this, 'Moment 01', '01')" />
+            <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/80 via-transparent to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+            <span class="absolute bottom-2.5 left-3 text-xs font-bold tracking-wider text-rose-200">Moment 01</span>
+          </div>
+        </button>
+
+        <!-- Moment 02 -->
+        <button type="button" onclick="openLightbox(1)" class="group pb-card rounded-2xl p-2 text-left overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-rose-400">
+          <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-espresso-800">
+            <img src="photos/IMG_8659.jpeg" alt="Moment 02" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="handleImgFallback(this, 'Moment 02', '02')" />
+            <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/80 via-transparent to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+            <span class="absolute bottom-2.5 left-3 text-xs font-bold tracking-wider text-rose-200">Moment 02</span>
+          </div>
+        </button>
+
+        <!-- Moment 03 -->
+        <button type="button" onclick="openLightbox(2)" class="group pb-card rounded-2xl p-2 text-left overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-rose-400">
+          <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-espresso-800">
+            <img src="photos/IMG-20260216-WA0009.jpg" alt="Moment 03" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="handleImgFallback(this, 'Moment 03', '03')" />
+            <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/80 via-transparent to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+            <span class="absolute bottom-2.5 left-3 text-xs font-bold tracking-wider text-rose-200">Moment 03</span>
+          </div>
+        </button>
+
+        <!-- Moment 04 -->
+        <button type="button" onclick="openLightbox(3)" class="group pb-card rounded-2xl p-2 text-left overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-rose-400">
+          <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-espresso-800">
+            <img src="photos/Picsart_25-10-11_09-32-33-747.jpg" alt="Moment 04" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="handleImgFallback(this, 'Moment 04', '04')" />
+            <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/80 via-transparent to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+            <span class="absolute bottom-2.5 left-3 text-xs font-bold tracking-wider text-rose-200">Moment 04</span>
+          </div>
+        </button>
+
+        <!-- Moment 05 -->
+        <button type="button" onclick="openLightbox(4)" class="group pb-card rounded-2xl p-2 text-left overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-rose-400">
+          <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-espresso-800">
+            <img src="photos/Picsart_26-03-26_14-57-42-803.jpg" alt="Moment 05" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="handleImgFallback(this, 'Moment 05', '05')" />
+            <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/80 via-transparent to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+            <span class="absolute bottom-2.5 left-3 text-xs font-bold tracking-wider text-rose-200">Moment 05</span>
+          </div>
+        </button>
+
+        <!-- Moment 06 -->
+        <button type="button" onclick="openLightbox(5)" class="group pb-card rounded-2xl p-2 text-left overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-rose-400">
+          <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-espresso-800">
+            <img src="photos/IMG-20261106-WA0096.jpg" alt="Moment 06" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="handleImgFallback(this, 'Moment 06', '06')" />
+            <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/80 via-transparent to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+            <span class="absolute bottom-2.5 left-3 text-xs font-bold tracking-wider text-rose-200">Moment 06</span>
+          </div>
+        </button>
+
+        <!-- Moment 07 -->
+        <button type="button" onclick="openLightbox(6)" class="group pb-card rounded-2xl p-2 text-left overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-rose-400">
+          <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-espresso-800">
+            <img src="photos/IMG-20260214-WA0032.jpg" alt="Moment 07" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="handleImgFallback(this, 'Moment 07', '07')" />
+            <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/80 via-transparent to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+            <span class="absolute bottom-2.5 left-3 text-xs font-bold tracking-wider text-rose-200">Moment 07</span>
+          </div>
+        </button>
+
+        <!-- Moment 08 -->
+        <button type="button" onclick="openLightbox(7)" class="group pb-card rounded-2xl p-2 text-left overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-rose-400">
+          <div class="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-espresso-800">
+            <img src="photos/IMG-20260711-WA0010.jpg" alt="Moment 08" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="handleImgFallback(this, 'Moment 08', '08')" />
+            <div class="absolute inset-0 bg-gradient-to-t from-espresso-950/80 via-transparent to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+            <span class="absolute bottom-2.5 left-3 text-xs font-bold tracking-wider text-rose-200">Moment 08</span>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         6. SOCIAL MEDIA, DIRECT EMAIL COPY & FEEDBACK FORM
+         ====================================================================== -->
+    <section id="contact" class="reveal-item space-y-8 scroll-mt-24">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-rose-600 dark:text-rose-300" data-en="Connect & Collaborate" data-ne="सम्पर्क र सहकार्य">Connect & Collaborate</span>
+        <h2 class="font-display font-bold text-2xl sm:text-3xl mt-1" data-en="Social Media & Feedback" data-ne="सामाजिक सञ्जाल र सुझाव">Social Media & Feedback</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+        <!-- Left Column: Social Channels + Email Copy Card -->
+        <div class="lg:col-span-5 space-y-5">
+          <div class="pb-card rounded-3xl p-6 space-y-4">
+            <h3 class="font-display font-bold text-lg" data-en="Official Social Profiles" data-ne="आधिकारिक सामाजिक सञ्जालहरू">Official Social Profiles</h3>
+
+            <div class="space-y-3">
+              <!-- Facebook -->
+              <a href="https://facebook.com/bhabishekdulal" target="_blank" rel="noopener noreferrer"
+                 class="flex items-center justify-between p-3.5 rounded-2xl bg-white/50 dark:bg-espresso-900/60 border border-[#7a493a]/20 dark:border-rose-300/15 hover:border-rose-400 transition-all group">
+                <div class="flex items-center gap-3">
+                  <span class="w-9 h-9 rounded-xl bg-rose-500/15 text-rose-600 dark:text-rose-300 flex items-center justify-center font-bold">f</span>
+                  <div>
+                    <p class="text-xs text-[#7a493a] dark:text-[#cbb0a8]">Facebook</p>
+                    <p class="text-sm font-semibold">/bhabishekdulal</p>
+                  </div>
+                </div>
+                <span class="text-xs font-semibold text-rose-500 group-hover:translate-x-0.5 transition-transform">↗</span>
+              </a>
+
+              <!-- Instagram -->
+              <a href="https://instagram.com/_bhabishek.dulal" target="_blank" rel="noopener noreferrer"
+                 class="flex items-center justify-between p-3.5 rounded-2xl bg-white/50 dark:bg-espresso-900/60 border border-[#7a493a]/20 dark:border-rose-300/15 hover:border-rose-400 transition-all group">
+                <div class="flex items-center gap-3">
+                  <span class="w-9 h-9 rounded-xl bg-rose-500/15 text-rose-600 dark:text-rose-300 flex items-center justify-center font-bold">IG</span>
+                  <div>
+                    <p class="text-xs text-[#7a493a] dark:text-[#cbb0a8]">Instagram</p>
+                    <p class="text-sm font-semibold">@_bhabishek.dulal</p>
+                  </div>
+                </div>
+                <span class="text-xs font-semibold text-rose-500 group-hover:translate-x-0.5 transition-transform">↗</span>
+              </a>
+
+              <!-- YouTube -->
+              <a href="https://youtube.com/@bhabishek.withyou?si=JcuUwDNBdnpRdybT" target="_blank" rel="noopener noreferrer"
+                 class="flex items-center justify-between p-3.5 rounded-2xl bg-white/50 dark:bg-espresso-900/60 border border-[#7a493a]/20 dark:border-rose-300/15 hover:border-rose-400 transition-all group">
+                <div class="flex items-center gap-3">
+                  <span class="w-9 h-9 rounded-xl bg-rose-500/15 text-rose-600 dark:text-rose-300 flex items-center justify-center font-bold">YT</span>
+                  <div>
+                    <p class="text-xs text-[#7a493a] dark:text-[#cbb0a8]">YouTube</p>
+                    <p class="text-sm font-semibold">Bhabishek Dulal</p>
+                  </div>
+                </div>
+                <span class="text-xs font-semibold text-rose-500 group-hover:translate-x-0.5 transition-transform">↗</span>
+              </a>
+
+              <!-- LinkedIn -->
+              <a href="https://www.linkedin.com/in/bhabishek-dulal-11035a449" target="_blank" rel="noopener noreferrer"
+                 class="flex items-center justify-between p-3.5 rounded-2xl bg-white/50 dark:bg-espresso-900/60 border border-[#7a493a]/20 dark:border-rose-300/15 hover:border-rose-400 transition-all group">
+                <div class="flex items-center gap-3">
+                  <span class="w-9 h-9 rounded-xl bg-rose-500/15 text-rose-600 dark:text-rose-300 flex items-center justify-center font-bold">in</span>
+                  <div>
+                    <p class="text-xs text-[#7a493a] dark:text-[#cbb0a8]">LinkedIn</p>
+                    <p class="text-sm font-semibold">Bhabishek Dulal</p>
+                  </div>
+                </div>
+                <span class="text-xs font-semibold text-rose-500 group-hover:translate-x-0.5 transition-transform">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Direct Email Copy Card -->
+          <div class="pb-card rounded-3xl p-6 space-y-3">
+            <p class="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-300" data-en="Direct Email Support" data-ne="प्रत्यक्ष इमेल सम्पर्क">Direct Email Support</p>
+            <div class="p-3.5 rounded-2xl bg-white/60 dark:bg-espresso-950/70 border border-rose-400/25 flex items-center justify-between gap-2">
+              <span id="email-text" class="text-xs sm:text-sm font-mono font-medium break-all select-all">bhabishek.feedback.suppport@gmail.com</span>
+              <button type="button" onclick="copyEmail()"
+                class="shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-rose-500 to-[#6e3d30] hover:opacity-90 transition-opacity cursor-pointer"
+                data-en="Copy" data-ne="कपी">
+                Copy
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Feedback Form -->
+        <div class="lg:col-span-7">
+          <form id="feedback-form" class="pb-card rounded-3xl p-6 sm:p-8 space-y-5" novalidate>
+            <div>
+              <h3 class="font-display font-bold text-xl" data-en="Send a Message or Feedback" data-ne="सन्देश वा सुझाव पठाउनुहोस्">Send a Message or Feedback</h3>
+              <p class="text-xs sm:text-sm text-[#68463c] dark:text-[#cbb0a8] mt-1" data-en="Select a topic and share your thoughts on YouTube videos, Lok Sewa, NEPSE, or collaboration." data-ne="विषय छान्नुहोस् र युट्युब, लोक सेवा, नेप्से वा सहकार्यबारे आफ्नो विचार लेख्नुहोस्।">
+                Select a topic and share your thoughts on YouTube videos, Lok Sewa, NEPSE, or collaboration.
+              </p>
+            </div>
+
+            <!-- Feedback Topics -->
+            <div class="space-y-2">
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#7a493a] dark:text-rose-200" data-en="Feedback Topic" data-ne="सुझावको विषय">Feedback Topic</label>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="topic-pills">
+                <button type="button" data-topic="General" class="topic-btn active px-3 py-2 rounded-xl text-xs font-semibold border border-rose-400 bg-rose-500/20 text-rose-700 dark:text-rose-100 transition-all cursor-pointer" data-en="General" data-ne="सामान्य">General</button>
+                <button type="button" data-topic="YouTube" class="topic-btn px-3 py-2 rounded-xl text-xs font-semibold border border-[#7a493a]/25 dark:border-rose-300/20 bg-white/40 dark:bg-espresso-900/50 hover:border-rose-400 transition-all cursor-pointer" data-en="YouTube" data-ne="युट्युब">YouTube</button>
+                <button type="button" data-topic="Lok Sewa & NEPSE" class="topic-btn px-3 py-2 rounded-xl text-xs font-semibold border border-[#7a493a]/25 dark:border-rose-300/20 bg-white/40 dark:bg-espresso-900/50 hover:border-rose-400 transition-all cursor-pointer" data-en="Lok Sewa & NEPSE" data-ne="लोक सेवा र नेप्से">Lok Sewa & NEPSE</button>
+                <button type="button" data-topic="Collaboration" class="topic-btn px-3 py-2 rounded-xl text-xs font-semibold border border-[#7a493a]/25 dark:border-rose-300/20 bg-white/40 dark:bg-espresso-900/50 hover:border-rose-400 transition-all cursor-pointer" data-en="Collaboration" data-ne="सहकार्य">Collaboration</button>
+              </div>
+              <input type="hidden" id="selected-topic" value="General" />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <label for="fb-name" class="block text-xs font-semibold" data-en="Your Name" data-ne="तपाईँको नाम">Your Name</label>
+                <input id="fb-name" type="text" required placeholder="e.g. Aarav Sharma"
+                  class="w-full px-4 py-3 rounded-2xl text-sm bg-white/70 dark:bg-espresso-950/70 border border-[#7a493a]/25 dark:border-rose-300/20 focus:outline-none focus:border-rose-400 transition-colors" />
+              </div>
+              <div class="space-y-1.5">
+                <label for="fb-contact" class="block text-xs font-semibold" data-en="Email or Contact" data-ne="इमेल वा सम्पर्क नम्बर">Email or Contact</label>
+                <input id="fb-contact" type="text" required placeholder="you@example.com"
+                  class="w-full px-4 py-3 rounded-2xl text-sm bg-white/70 dark:bg-espresso-950/70 border border-[#7a493a]/25 dark:border-rose-300/20 focus:outline-none focus:border-rose-400 transition-colors" />
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <label for="fb-message" class="block text-xs font-semibold" data-en="Message" data-ne="सन्देश">Message</label>
+              <textarea id="fb-message" rows="4" required placeholder="Write your message here..."
+                class="w-full px-4 py-3 rounded-2xl text-sm bg-white/70 dark:bg-espresso-950/70 border border-[#7a493a]/25 dark:border-rose-300/20 focus:outline-none focus:border-rose-400 transition-colors resize-none"></textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+              <button type="submit"
+                class="px-6 py-3.5 rounded-2xl font-bold text-sm text-white bg-gradient-to-r from-rose-500 via-pink-600 to-[#6e3d30] hover:opacity-95 shadow-lg shadow-rose-500/25 transition-all cursor-pointer"
+                data-en="Send Feedback" data-ne="सुझाव पठाउनुहोस्">
+                Send Feedback
+              </button>
+              <span class="text-xs text-[#68463c] dark:text-[#cbb0a8]" data-en="Opens your mail client or logs confirmation instantly" data-ne="तुरुन्तै पुष्टि सन्देश र इमेल विकल्प उपलब्ध गराउँछ">
+                Opens your mail client or logs confirmation instantly
+              </span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="relative z-10 border-t border-rose-300/15 py-8 text-center text-xs sm:text-sm text-[#68463c] dark:text-[#cbb0a8]">
+    <div class="max-w-6xl mx-auto px-4 space-y-2">
+      <p class="font-display font-semibold text-[#3b1f18] dark:text-rose-200">
+        “धेरै छ गर्न स्वदेशको सेवा नेपाली भन्न लाई”
+      </p>
+      <p>
+        © <span id="footer-year">2026</span> <span data-en="Bhabishek Dulal (भविशेक दुलाल) · Shailung-05 & Charikot, Dolakha, Nepal" data-ne="भविशेक दुलाल (Bhabishek Dulal) · शैलुङ-०५ र चरिकोट, दोलखा, नेपाल">Bhabishek Dulal (भविशेक दुलाल) · Shailung-05 & Charikot, Dolakha, Nepal</span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       FULL-SCREEN LIGHTBOX VIEWER FOR THE 8 CURATED MOMENTS
+       ======================================================================== -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-espresso-950/92 backdrop-blur-xl p-4 sm:p-8" role="dialog" aria-modal="true" aria-label="Photo Lightbox Viewer">
+    <!-- Close Button -->
+    <button type="button" onclick="closeLightbox()" aria-label="Close Lightbox"
+      class="absolute top-4 right-4 sm:top-6 sm:right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-rose-500/40 border border-white/20 text-white flex items-center justify-center text-xl transition-colors cursor-pointer z-10">
+      ✕
+    </button>
+
+    <!-- Previous Photo Button -->
+    <button type="button" onclick="navigateLightbox(-1)" aria-label="Previous Photo"
+      class="absolute left-3 sm:left-6 w-11 h-11 rounded-full bg-white/10 hover:bg-rose-500/40 border border-white/20 text-white flex items-center justify-center text-lg transition-colors cursor-pointer z-10">
+      ‹
+    </button>
+
+    <!-- Lightbox Image Frame -->
+    <div class="max-w-3xl w-full flex flex-col items-center gap-4">
+      <div class="relative rounded-3xl overflow-hidden border border-rose-300/30 shadow-2xl bg-espresso-900 max-h-[75vh] flex items-center justify-center">
+        <img id="lightbox-img" src="" alt="Curated Moment" class="max-h-[75vh] w-auto object-contain" />
+      </div>
+      <div class="flex items-center gap-4 px-5 py-2 rounded-full bg-white/10 border border-rose-300/25 text-rose-100 text-xs sm:text-sm font-semibold">
+        <span id="lightbox-counter">01 / 08</span>
+        <span>·</span>
+        <span id="lightbox-caption">Moment 01</span>
+      </div>
+    </div>
+
+    <!-- Next Photo Button -->
+    <button type="button" onclick="navigateLightbox(1)" aria-label="Next Photo"
+      class="absolute right-3 sm:right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-rose-500/40 border border-white/20 text-white flex items-center justify-center text-lg transition-colors cursor-pointer z-10">
+      ›
+    </button>
+  </div>
+
+  <!-- ========================================================================
+       TOAST NOTIFICATION CONTAINER
+       ======================================================================== -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 pointer-events-none max-w-sm"></div>
+
+  <!-- ========================================================================
+       JAVASCRIPT: LIVE WALLPAPER, THEME, MOTION, BILINGUAL TOGGLE, LIGHTBOX
+       ======================================================================== -->
+  <script>
+    // ------------------------------------------------------------------------
+    // 1. IMAGE FALLBACK HANDLER (Displays a styled Pink & Brown SVG card if
+    //    local photos/ files are not present yet in preview mode)
+    // ------------------------------------------------------------------------
+    function handleImgFallback(imgEl, label, initials) {
+      if (imgEl.dataset.fallbackApplied) return;
+      imgEl.dataset.fallbackApplied = 'true';
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="600" height="750" viewBox="0 0 600 750">
+          <defs>
+            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#3b211a"/>
+              <stop offset="55%" stop-color="#5c3329"/>
+              <stop offset="100%" stop-color="#9e475e"/>
+            </linearGradient>
+          </defs>
+          <rect width="600" height="750" fill="url(#bg)"/>
+          <circle cx="300" cy="310" r="95" fill="rgba(255,228,233,0.14)" stroke="rgba(253,164,175,0.45)" stroke-width="3"/>
+          <text x="300" y="330" text-anchor="middle" fill="#ffe4e6" font-family="sans-serif" font-size="64" font-weight="700">${initials}</text>
+          <text x="300" y="465" text-anchor="middle" fill="#fecdd3" font-family="sans-serif" font-size="24" font-weight="600">${label}</text>
+          <text x="300" y="502" text-anchor="middle" fill="rgba(255,228,233,0.65)" font-family="sans-serif" font-size="16">${imgEl.getAttribute('src')}</text>
+        </svg>`;
+      imgEl.src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+    }
+
+    // ------------------------------------------------------------------------
+    // 2. TOAST NOTIFICATION SYSTEM
+    // ------------------------------------------------------------------------
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'pointer-events-auto px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-[#2c1813] to-[#68362c] border border-rose-400/40 shadow-xl flex items-center gap-2.5 transform transition-all duration-300 translate-y-2 opacity-0';
+      toast.innerHTML = `<span class="w-2 h-2 rounded-full bg-rose-400 shrink-0"></span><span>${message}</span>`;
+      container.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-2', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    // ------------------------------------------------------------------------
+    // 3. STATE MANAGEMENT: THEME (DARK/LIGHT), MOTION (ON/OFF), LANGUAGE (EN/NE)
+    // ------------------------------------------------------------------------
+    const htmlEl = document.documentElement;
+    let currentLang = localStorage.getItem('bd_lang') || 'en';
+    let motionEnabled = localStorage.getItem('bd_motion') !== 'off';
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches && localStorage.getItem('bd_motion') === null) {
+      motionEnabled = false;
+    }
+
+    // Apply saved theme (default Dark Mode)
+    const savedTheme = localStorage.getItem('bd_theme');
+    if (savedTheme === 'light') {
+      htmlEl.classList.remove('dark');
+    } else {
+      htmlEl.classList.add('dark');
+    }
+
+    // Theme Toggle Listener
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const isDark = htmlEl.classList.toggle('dark');
+      localStorage.setItem('bd_theme', isDark ? 'dark' : 'light');
+      showToast(currentLang === 'en'
+        ? (isDark ? 'Switched to Espresso & Rose Dark Mode' : 'Switched to Cream & Cocoa Light Mode')
+        : (isDark ? 'डार्क मोड सक्रिय गरियो' : 'लाइट मोड सक्रिय गरियो')
+      );
+    });
+
+    // Motion Toggle Logic
+    function applyMotionState() {
+      const statusEl = document.getElementById('motion-status');
+      if (motionEnabled) {
+        htmlEl.classList.remove('reduce-motion');
+        statusEl.setAttribute('data-en', 'Motion: On');
+        statusEl.setAttribute('data-ne', 'गति: चालु');
+        statusEl.textContent = currentLang === 'en' ? 'Motion: On' : 'गति: चालु';
+        startWallpaperLoop();
+      } else {
+        htmlEl.classList.add('reduce-motion');
+        statusEl.setAttribute('data-en', 'Motion: Off');
+        statusEl.setAttribute('data-ne', 'गति: बन्द');
+        statusEl.textContent = currentLang === 'en' ? 'Motion: Off' : 'गति: बन्द';
+        drawStaticWallpaper();
+      }
+    }
+
+    document.getElementById('motion-toggle').addEventListener('click', () => {
+      motionEnabled = !motionEnabled;
+      localStorage.setItem('bd_motion', motionEnabled ? 'on' : 'off');
+      applyMotionState();
+      showToast(currentLang === 'en'
+        ? (motionEnabled ? 'Live ambient wallpaper & motion enabled' : 'Motion paused for static viewing')
+        : (motionEnabled ? 'लाइभ वालपेपर र गति चालु गरियो' : 'गति बन्द गरियो')
+      );
+    });
+
+    // Bilingual Language Switcher (English <-> Nepali)
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('bd_lang', lang);
+      document.querySelectorAll('[data-en][data-ne]').forEach(el => {
+        el.textContent = el.getAttribute(lang === 'ne' ? 'data-ne' : 'data-en');
+      });
+      document.getElementById('lang-label').textContent = lang === 'en' ? 'EN | नेपा' : 'नेपा | EN';
+    }
+
+    document.getElementById('lang-toggle').addEventListener('click', () => {
+      const nextLang = currentLang === 'en' ? 'ne' : 'en';
+      applyLanguage(nextLang);
+      showToast(nextLang === 'ne' ? 'भाषा नेपालीमा परिवर्तन गरियो' : 'Language switched to English');
+    });
+
+    // ------------------------------------------------------------------------
+    // 4. LIVE NEPAL STANDARD TIME CLOCK (UTC+5:45) & SCROLL PROGRESS BAR
+    // ------------------------------------------------------------------------
+    function updateNepalClock() {
+      try {
+        const now = new Date();
+        const formatter = new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Asia/Kathmandu',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        });
+        document.getElementById('nepal-clock').textContent = formatter.format(now);
+      } catch (e) {
+        const utc = Date.now() + new Date().getTimezoneOffset() * 60000;
+        const npt = new Date(utc + 5.75 * 3600000);
+        document.getElementById('nepal-clock').textContent = npt.toTimeString().slice(0, 8);
+      }
+    }
+    setInterval(updateNepalClock, 1000);
+    updateNepalClock();
+
+    // Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+      document.getElementById('scroll-progress').style.width = pct + '%';
+    }, { passive: true });
+
+    // ------------------------------------------------------------------------
+    // 5. FULL-SCREEN LIGHTBOX GALLERY VIEWER (8 CURATED MOMENTS)
+    // ------------------------------------------------------------------------
+    const galleryMoments = [
+      { src: 'photos/IMG_20260707_141635521.jpg', caption: 'Moment 01' },
+      { src: 'photos/IMG_8659.jpeg', caption: 'Moment 02' },
+      { src: 'photos/IMG-20260216-WA0009.jpg', caption: 'Moment 03' },
+      { src: 'photos/Picsart_25-10-11_09-32-33-747.jpg', caption: 'Moment 04' },
+      { src: 'photos/Picsart_26-03-26_14-57-42-803.jpg', caption: 'Moment 05' },
+      { src: 'photos/IMG-20261106-WA0096.jpg', caption: 'Moment 06' },
+      { src: 'photos/IMG-20260214-WA0032.jpg', caption: 'Moment 07' },
+      { src: 'photos/IMG-20260711-WA0010.jpg', caption: 'Moment 08' }
+    ];
+    let activeLightboxIndex = 0;
+
+    function updateLightboxContent() {
+      const item = galleryMoments[activeLightboxIndex];
+      const img = document.getElementById('lightbox-img');
+      delete img.dataset.fallbackApplied;
+      img.onerror = () => handleImgFallback(img, item.caption, String(activeLightboxIndex + 1).padStart(2, '0'));
+      img.src = item.src;
+      document.getElementById('lightbox-counter').textContent = `${String(activeLightboxIndex + 1).padStart(2, '0')} / 08`;
+      document.getElementById('lightbox-caption').textContent = item.caption;
+    }
+
+    function openLightbox(index) {
+      activeLightboxIndex = index;
+      updateLightboxContent();
+      const modal = document.getElementById('lightbox-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('lightbox-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    function navigateLightbox(step) {
+      activeLightboxIndex = (activeLightboxIndex + step + galleryMoments.length) % galleryMoments.length;
+      updateLightboxContent();
+    }
+
+    document.getElementById('lightbox-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'lightbox-modal') closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('lightbox-modal');
+      if (modal.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') navigateLightbox(1);
+      if (e.key === 'ArrowLeft') navigateLightbox(-1);
+    });
+
+    // ------------------------------------------------------------------------
+    // 6. EMAIL COPY & FEEDBACK FORM HANDLERS
+    // ------------------------------------------------------------------------
+    function copyEmail() {
+      const email = 'bhabishek.feedback.suppport@gmail.com';
+      const tempInput = document.createElement('input');
+      tempInput.value = email;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      showToast(currentLang === 'en' ? 'Email copied to clipboard!' : 'इमेल क्लिपबोर्डमा कपी भयो!');
+    }
+
+    // Topic Pill Selection
+    document.querySelectorAll('.topic-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.topic-btn').forEach(b => {
+          b.classList.remove('border-rose-400', 'bg-rose-500/20', 'text-rose-700', 'dark:text-rose-100');
+          b.classList.add('border-[#7a493a]/25', 'dark:border-rose-300/20', 'bg-white/40', 'dark:bg-espresso-900/50');
+        });
+        btn.classList.remove('border-[#7a493a]/25', 'dark:border-rose-300/20', 'bg-white/40', 'dark:bg-espresso-900/50');
+        btn.classList.add('border-rose-400', 'bg-rose-500/20', 'text-rose-700', 'dark:text-rose-100');
+        document.getElementById('selected-topic').value = btn.dataset.topic;
+      });
+    });
+
+    // Feedback Form Submit
+    document.getElementById('feedback-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const topic = document.getElementById('selected-topic').value;
+      const name = document.getElementById('fb-name').value.trim();
+      const contact = document.getElementById('fb-contact').value.trim();
+      const message = document.getElementById('fb-message').value.trim();
+
+      if (!name || !contact || !message) {
+        showToast(currentLang === 'en' ? 'Please complete all fields before sending.' : 'कृपया सबै विवरण भर्नुहोस्।');
+        return;
+      }
+
+      const subject = encodeURIComponent(`[Portfolio · ${topic}] Message from ${name}`);
+      const body = encodeURIComponent(`Name: ${name}\nContact: ${contact}\nTopic: ${topic}\n\nMessage:\n${message}`);
+      window.location.href = `mailto:bhabishek.feedback.suppport@gmail.com?subject=${subject}&body=${body}`;
+
+      showToast(currentLang === 'en'
+        ? `Thank you, ${name}! Preparing your ${topic} message.`
+        : `धन्यवाद, ${name}! तपाईँको सन्देश तयार भयो।`
+      );
+      e.target.reset();
+    });
+
+    // ------------------------------------------------------------------------
+    // 7. SCROLL REVEAL OBSERVER
+    // ------------------------------------------------------------------------
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal-item').forEach(el => revealObserver.observe(el));
+
+    // ------------------------------------------------------------------------
+    // 8. ULTRA-SMOOTH 60FPS LIVE AMBIENT WALLPAPER (PINK & WARM BROWN ORBS)
+    // ------------------------------------------------------------------------
+    const canvas = document.getElementById('live-wallpaper');
+    const ctx = canvas.getContext('2d', { alpha: true });
+    let width = 0;
+    let height = 0;
+    let rafId = null;
+
+    // Lightweight ambient orbs + gentle floating sparkles (zero lag)
+    const orbs = [
+      { xPct: 0.18, yPct: 0.22, r: 260, vx: 0.00022, vy: 0.00016, type: 'pink' },
+      { xPct: 0.82, yPct: 0.28, r: 300, vx: -0.00018, vy: 0.00021, type: 'brown' },
+      { xPct: 0.50, yPct: 0.72, r: 320, vx: 0.00015, vy: -0.00019, type: 'pink' },
+      { xPct: 0.20, yPct: 0.85, r: 240, vx: 0.00020, vy: -0.00014, type: 'brown' }
+    ];
+
+    const motes = Array.from({ length: 24 }, (_, i) => ({
+      x: Math.random(),
+      y: Math.random(),
+      size: 1.4 + (i % 3) * 0.9,
+      speedY: 0.00018 + (i % 5) * 0.00006,
+      driftX: ((i % 2 === 0 ? 1 : -1) * 0.00012),
+      isPink: i % 2 === 0
+    }));
+
+    function resizeWallpaper() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5); // Cap DPR for silky 60fps
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (!motionEnabled) drawStaticWallpaper();
+    }
+
+    function renderWallpaperFrame(animate) {
+      ctx.clearRect(0, 0, width, height);
+      const isDark = htmlEl.classList.contains('dark');
+
+      // Draw soft glowing Pink & Brown ambient gradients
+      for (const orb of orbs) {
+        if (animate) {
+          orb.xPct += orb.vx;
+          orb.yPct += orb.vy;
+          if (orb.xPct < 0.05 || orb.xPct > 0.95) orb.vx *= -1;
+          if (orb.yPct < 0.05 || orb.yPct > 0.95) orb.vy *= -1;
+        }
+
+        const cx = orb.xPct * width;
+        const cy = orb.yPct * height;
+        const radius = Math.min(orb.r, Math.max(width, height) * 0.34);
+        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+
+        if (orb.type === 'pink') {
+          grad.addColorStop(0, isDark ? 'rgba(244, 143, 166, 0.14)' : 'rgba(232, 114, 142, 0.16)');
+          grad.addColorStop(1, 'rgba(244, 143, 166, 0)');
+        } else {
+          grad.addColorStop(0, isDark ? 'rgba(138, 82, 64, 0.20)' : 'rgba(148, 96, 78, 0.14)');
+          grad.addColorStop(1, 'rgba(138, 82, 64, 0)');
+        }
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Draw subtle floating rose & cocoa dust motes
+      for (const m of motes) {
+        if (animate) {
+          m.y -= m.speedY;
+          m.x += m.driftX;
+          if (m.y < -0.02) m.y = 1.02;
+          if (m.x < 0) m.x = 1;
+          if (m.x > 1) m.x = 0;
+        }
+        ctx.fillStyle = m.isPink
+          ? (isDark ? 'rgba(253, 164, 175, 0.32)' : 'rgba(217, 93, 121, 0.28)')
+          : (isDark ? 'rgba(196, 138, 118, 0.28)' : 'rgba(122, 73, 58, 0.22)');
+        ctx.beginPath();
+        ctx.arc(m.x * width, m.y * height, m.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function startWallpaperLoop() {
+      if (rafId) cancelAnimationFrame(rafId);
+      function tick() {
+        if (!motionEnabled) return;
+        renderWallpaperFrame(true);
+        rafId = requestAnimationFrame(tick);
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function drawStaticWallpaper() {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+      renderWallpaperFrame(false);
+    }
+
+    // Pause canvas rendering automatically when browser tab is hidden to save battery
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (rafId) cancelAnimationFrame(rafId);
+      } else if (motionEnabled) {
+        startWallpaperLoop();
+      }
+    });
+
+    window.addEventListener('resize', resizeWallpaper, { passive: true });
+
+    // Initialize everything on load
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('footer-year').textContent = new Date().getFullYear();
+      resizeWallpaper();
+      applyLanguage(currentLang);
+      applyMotionState();
+    });
+  </script>
+</body>
+</html>
